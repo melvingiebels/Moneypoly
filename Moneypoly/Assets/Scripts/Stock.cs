@@ -6,14 +6,16 @@ using UnityEngine;
 public class Stock
 {
     public string stockName;
-    public string tickerSymbol;
+    public string tickerAbbreviation;
+    public string branchName;
     public float currentPrice;
     public float previousPrice;
 
-    public Stock(string name, string symbol, float price)
+    public Stock(string name, string abbreviation, string branch, float price)
     {
         stockName = name;
-        tickerSymbol = symbol;
+        tickerAbbreviation = abbreviation;
+        branchName = branch;
         currentPrice = price;
         previousPrice = price;
     }
