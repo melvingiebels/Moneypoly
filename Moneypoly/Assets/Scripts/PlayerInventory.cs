@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerInventory : MonoBehaviour
         bugetValueText.text = "€" + buget.ToString();
         stockNetWorthText.text = "€ " + netWorth.ToString();
         cardSpawner = GetComponent<CardSpawner>();
-        cardSpawner.SetStocks(wallet);
+
 
     }
 
@@ -50,7 +51,14 @@ public class PlayerInventory : MonoBehaviour
         buget -= stock.currentPrice;
         wallet.Add(stock);
         CalculateWallet();
+        SetStock();
+        
 
+
+    }
+    public void SetStock()
+    {
+        cardSpawner.SetStocks(wallet);
     }
 }
 
