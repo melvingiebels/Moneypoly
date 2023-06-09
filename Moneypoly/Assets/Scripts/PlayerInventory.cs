@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     private List<Stock> wallet = new();
     private float netWorth;
     public GameObject cardPrefab;
+    public CardSpawner cardSpawner;
 
     void Start()
     {
@@ -19,23 +20,7 @@ public class PlayerInventory : MonoBehaviour
         buget = 2000;
         bugetValueText.text = "€" + buget.ToString();
         stockNetWorthText.text = "€ " + netWorth.ToString();
-        //create stock
-        Stock stock1 = new Stock();
-        stock1.currentPrice = 100;
-        stock1.stockName = "KPN";
-        Stock stock2 = new Stock();
-        stock2.currentPrice = 400;
-        stock2.stockName = "Shell";
-        Stock stock3 = new Stock();
-        stock3.currentPrice = 300;
-        stock3.stockName = "ASML";
-
-        BuyStock(stock2);
-        BuyStock(stock3);
-        BuyStock(stock1);
-       
-
-        CardSpawner cardSpawner = GetComponent<CardSpawner>();
+        cardSpawner = GetComponent<CardSpawner>();
         cardSpawner.SetStocks(wallet);
 
     }
@@ -44,6 +29,7 @@ public class PlayerInventory : MonoBehaviour
     {
         bugetValueText.text = "€" + buget.ToString();
         stockNetWorthText.text = "€ " + netWorth.ToString();
+        
 
     }
 
@@ -68,9 +54,5 @@ public class PlayerInventory : MonoBehaviour
     }
 }
 
-public class Stock
-{
-    public float currentPrice;
-    public string stockName;
 
-}
+

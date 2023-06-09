@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,14 +8,12 @@ using UnityEngine.UIElements;
 
 public class StockMarket : MonoBehaviour
 {
-    public TMP_Text stock1;
-    public TMP_Text stock2;
-    public TMP_Text stock3;
-    public Stock[] stocks;
-    public string[] branchNames;
 
+    private Stock[] stocks;
+    private string[] branchNames;
     public int currentRound = 1;
     public int totalRounds = 10;
+    private PlayerInventory playerInventory;
 
     private void Start()
     {
@@ -40,6 +39,20 @@ public class StockMarket : MonoBehaviour
             new Stock("DEF Company", "DEF", branchNames[0], 10.0f),
             new Stock("XYZ Corporation", "XYZ", branchNames[1], 20.0f),
         };
+        // Find the PlayerInventory script in the scene
+        playerInventory = GameObject.FindObjectOfType<PlayerInventory>();  
+        if (playerInventory != null)
+        {
+            playerInventory.BuyStock(stocks[0]);
+            playerInventory.BuyStock(stocks[1]);
+            playerInventory.BuyStock(stocks[2]);
+            Console.WriteLine("Stocks bought");
+        }
+       else
+        {
+            Debug.LogError("No PlayerInventory script found in the scene!");
+        }
+       
     }
 
     public void UpdateStockPrices()
@@ -57,7 +70,7 @@ public class StockMarket : MonoBehaviour
             float maxChange = 5.0f * weight;
 
             // Calculate a random change for the branch
-            float branchChange = Random.Range(minChange, maxChange);
+            float branchChange = UnityEngine.Random.Range(minChange, maxChange);
             branchPriceChanges.Add(branch, branchChange);
         }
 
@@ -74,7 +87,7 @@ public class StockMarket : MonoBehaviour
             foreach (Stock stock in branchStocks)
             {
                 // Calculate a random deviation from the average change
-                float randomDeviation = Random.Range(-1.0f, 1.0f) * Mathf.Abs(averageChange);
+                float randomDeviation = UnityEngine.Random.Range(-1.0f, 1.0f) * Mathf.Abs(averageChange);
                 float stockChange = averageChange + randomDeviation;
 
                 // Apply the branch-specific and stock-specific price change to the stock's current price
@@ -87,7 +100,7 @@ public class StockMarket : MonoBehaviour
                     stock.currentPrice = 1.0f;
                 }
 
-                UpdateStockUI(stock);
+                //UpdateStockUI(stock);
             }
         }
     }
@@ -108,23 +121,23 @@ public class StockMarket : MonoBehaviour
     }
 
 
-    private void UpdateStockUI(Stock stock)
-    {
-        string indicator = stock.IsGoingUp() ? "▲" : "▼";
-        string stockInfo = $"{stock.stockName} ({stock.tickerAbbreviation})\n Branch: {stock.branchName}\n Prev: {stock.previousPrice}\nCurr: {indicator} <color={(stock.IsGoingUp() ? "green" : "red")}>{stock.currentPrice}</color>";
+    //private void UpdateStockUI(Stock stock)
+    //{
+    //    string indicator = stock.IsGoingUp() ? "▲" : "▼";
+    //    string stockInfo = $"{stock.stockName} ({stock.tickerAbbreviation})\n Branch: {stock.branchName}\n Prev: {stock.previousPrice}\nCurr: {indicator} <color={(stock.IsGoingUp() ? "green" : "red")}>{stock.currentPrice}</color>";
 
-        if (stock.stockName == "ABC Company")
-        {
-            stock1.text = stockInfo;
-        } 
-        else if (stock.stockName == "DEF Company")
-        {
-            stock2.text = stockInfo;
-        }
-        else if (stock.stockName == "XYZ Corporation")
-        {
-            stock3.text = stockInfo;
-        }
-    }
+    //    if (stock.stockName == "ABC Company")
+    //    {
+    //        stock1.text = stockInfo;
+    //    } 
+    //    else if (stock.stockName == "DEF Company")
+    //    {
+    //        stock2.text = stockInfo;
+    //    }
+    //    else if (stock.stockName == "XYZ Corporation")
+    //    {
+    //        stock3.text = stockInfo;
+    //    }
+    //}
 
 }
