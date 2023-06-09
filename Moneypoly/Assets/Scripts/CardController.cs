@@ -9,11 +9,6 @@ public class CardController : MonoBehaviour
     //declare the text ui to display the stock name
     public TextMeshProUGUI stockName;
     public TextMeshProUGUI stockPrice;
-    //add the animatiorcontroller component
-    public RuntimeAnimatorController animatorController;
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +24,7 @@ public class CardController : MonoBehaviour
 
     public void SetCardData(Stock cardData)
     {
-        stockName.text = cardData.name;
-        stockPrice.text = cardData.currentPrice.ToString();
+        stockName.text = cardData.stockName;
+        stockPrice.text ="€ "+ cardData.currentPrice.ToString();
     }
 }

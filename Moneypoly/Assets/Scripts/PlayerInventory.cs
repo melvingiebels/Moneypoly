@@ -6,9 +6,9 @@ using TMPro;
 public class PlayerInventory : MonoBehaviour
 {
     private float buget;
-//    public TextMeshProUGUI bugetText;
-//    public TextMeshProUGUI netWorthText;
-//    public TextMeshProUGUI stockOverviewText;
+    public TextMeshProUGUI bugetValueText;
+    public TextMeshProUGUI stockNetWorthText;
+
     private List<Stock> wallet = new();
     private float netWorth;
     public GameObject cardPrefab;
@@ -17,22 +17,24 @@ public class PlayerInventory : MonoBehaviour
     {
        
         buget = 2000;
-//        bugetText.text = buget.ToString();
-  //      netWorthText.text = "€ " + netWorth.ToString();
+        bugetValueText.text = "€" + buget.ToString();
+        stockNetWorthText.text = "€ " + netWorth.ToString();
         //create stock
         Stock stock1 = new Stock();
         stock1.currentPrice = 100;
-        stock1.name = "EasyToys";
+        stock1.stockName = "KPN";
         Stock stock2 = new Stock();
         stock2.currentPrice = 400;
-        stock2.name = "Shell";
+        stock2.stockName = "Shell";
         Stock stock3 = new Stock();
         stock3.currentPrice = 300;
-        stock3.name = "ASML";
+        stock3.stockName = "ASML";
 
         BuyStock(stock2);
         BuyStock(stock3);
         BuyStock(stock1);
+       
+
         CardSpawner cardSpawner = GetComponent<CardSpawner>();
         cardSpawner.SetStocks(wallet);
 
@@ -40,33 +42,28 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
+        bugetValueText.text = "€" + buget.ToString();
+        stockNetWorthText.text = "€ " + netWorth.ToString();
 
-        
     }
 
-    //public void CalculateWallet()
-    //{
-    //    float NewNetWorth= 0;
-    //    foreach (Stock stock in wallet)
-    //    {
-    //        NewNetWorth += stock.currentPrice;
-    //    }
-    //    netWorth = NewNetWorth;
-    //}
-    //public void PrintStock()
-    //{
-    //    foreach(Stock stock in wallet)
-    //    {
+    public void CalculateWallet()
+    {
+        float NewNetWorth = 0;
+        foreach (Stock stock in wallet)
+        {
+            NewNetWorth += stock.currentPrice;
+        }
+        netWorth = NewNetWorth;
+    }
 
-    //    }
-    //}
 
 
     public void BuyStock(Stock stock)
     {
         buget -= stock.currentPrice;
         wallet.Add(stock);
-
+        CalculateWallet();
 
     }
 }
@@ -74,6 +71,6 @@ public class PlayerInventory : MonoBehaviour
 public class Stock
 {
     public float currentPrice;
-    public string name;
+    public string stockName;
 
 }

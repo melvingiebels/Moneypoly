@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CardSpawner : MonoBehaviour
 {
-    public string playerName;
     public GameObject cardPrefab;
     private List<Stock> wallet = new List<Stock>();
     public float cardSpacing = 20.0f; // Spacing between each card

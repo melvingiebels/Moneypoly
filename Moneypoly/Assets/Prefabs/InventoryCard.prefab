@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.11320752, g: 0.106265545, b: 0.106265545, a: 1}
+  m_Color: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -163,8 +163,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 452.375, y: 196.99998}
-  m_SizeDelta: {x: 904.75, y: 393.99997}
+  m_AnchoredPosition: {x: 179, y: 177}
+  m_SizeDelta: {x: 345.4524, y: 347.6676}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1488332070378294723
 Canvas:
@@ -583,7 +583,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2943599582944234495}
   - component: {fileID: 8733493392778648645}
-  - component: {fileID: 7182046592747784357}
   m_Layer: 0
   m_Name: InventoryCard
   m_TagString: Untagged
@@ -622,27 +621,6 @@ MonoBehaviour:
   stockName: {fileID: 2943599584611674685}
   stockPrice: {fileID: 1634043579334502302}
   animatorController: {fileID: 9100000, guid: 274d520483370054dbaa69b7527a1c4c, type: 2}
---- !u!95 &7182046592747784357
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2943599582944234494}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 4ff80727bd3710a458ba6b09af4f832a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2943599584611674687
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,7 +822,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Verkoop
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
