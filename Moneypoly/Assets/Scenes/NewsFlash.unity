@@ -123,6 +123,24 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &250858774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 535842726901821616, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
+  m_PrefabInstance: {fileID: 535842728624311896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &250858776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250858774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23cb9560860aac4439240fb1f582f97a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filePath: Assets/NewsFlashes.csv
 --- !u!1001 &691157746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -328,6 +346,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1265493306 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1267444775029000877, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
+  m_PrefabInstance: {fileID: 535842728624311896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1796788563
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,5 +511,9 @@ PrefabInstance:
       propertyPath: continueButton
       value: 
       objectReference: {fileID: 1874232900}
+    - target: {fileID: 535842728135144009, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
+      propertyPath: newsFlashSubject
+      value: 
+      objectReference: {fileID: 1265493306}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
