@@ -215,9 +215,9 @@ public class StockMarket : MonoBehaviour
         playerInventory = GameObject.FindObjectOfType<PlayerInventory>();  
         if (playerInventory != null)
         {
-            playerInventory.BuyStock(stocks[0]);
-            playerInventory.BuyStock(stocks[1]);
-            playerInventory.BuyStock(stocks[5]);
+            playerInventory.BuyStock(stocks[0],2);
+            playerInventory.BuyStock(stocks[1],1);
+            playerInventory.BuyStock(stocks[5],10);
             Debug.Log("Stocks bought");
         }
        else

@@ -23,7 +23,7 @@ public class CardController : MonoBehaviour
         
     }
 
-    public void SetCardData(Stock cardData)
+    public void SetCardData(Stock cardData, int amount)
     {
         stockName.text = cardData.stockName;
 
