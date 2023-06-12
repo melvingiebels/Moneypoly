@@ -9,10 +9,17 @@ using UnityEngine.UIElements;
 public class StockMarket : MonoBehaviour
 {
 
-    private Stock[] stocks;
+    private List<Stock> stocks = new List<Stock>();
     private string[] branchNames;
     public int currentRound = 1;
     public int totalRounds = 10;
+
+    public float maxBranchPrecentageChange = 5f;
+    public float minBranchPrecentageChange = -5f;
+
+    public float maxBusinessPrecentageChange = 2f;
+    public float minBusinessPrecentageChange = -2f;
+
     private PlayerInventory playerInventory;
 
     private void Start()
@@ -33,7 +40,7 @@ public class StockMarket : MonoBehaviour
             "Handel en dienstverlening"
         };
         // Create instances of stocks and assign values
-        stocks = new Stock[]
+        stocks = new List<Stock>
         {
          new Stock(
             "Meta Business",
@@ -208,10 +215,10 @@ public class StockMarket : MonoBehaviour
         playerInventory = GameObject.FindObjectOfType<PlayerInventory>();  
         if (playerInventory != null)
         {
-            playerInventory.BuyStock(stocks[0]);
-            playerInventory.BuyStock(stocks[1]);
-            playerInventory.BuyStock(stocks[2]);
-            Console.WriteLine("Stocks bought");
+            playerInventory.BuyStock(stocks[0],2);
+            playerInventory.BuyStock(stocks[1],1);
+            playerInventory.BuyStock(stocks[5],10);
+            Debug.Log("Stocks bought");
         }
        else
         {
@@ -222,8 +229,9 @@ public class StockMarket : MonoBehaviour
 
     public void UpdateStockPrices()
     {
+        Debug.Log("Updating stock prices...");
         // Calculate the weight for price changes based on the current round
-        float weight = 1.0f - ((float)currentRound / totalRounds);
+        float weight = 1.0f + ((float)currentRound / totalRounds);
 
         Dictionary<string, float> branchPriceChanges = new Dictionary<string, float>();
 
@@ -231,8 +239,8 @@ public class StockMarket : MonoBehaviour
         foreach (string branch in branchNames)
         {
             // Calculate the minimum and maximum price change based on the weight
-            float minChange = -5.0f * weight;
-            float maxChange = 5.0f * weight;
+            float minChange = minBranchPrecentageChange * weight;
+            float maxChange = maxBranchPrecentageChange * weight;
 
             // Calculate a random change for the branch
             float branchChange = UnityEngine.Random.Range(minChange, maxChange);
@@ -252,7 +260,7 @@ public class StockMarket : MonoBehaviour
             foreach (Stock stock in branchStocks)
             {
                 // Calculate a random deviation from the average change
-                float randomDeviation = UnityEngine.Random.Range(-1.0f, 1.0f) * Mathf.Abs(averageChange);
+                float randomDeviation = UnityEngine.Random.Range(minBusinessPrecentageChange, maxBusinessPrecentageChange) * Mathf.Abs(averageChange);
                 float stockChange = averageChange + randomDeviation;
 
                 // Apply the branch-specific and stock-specific price change to the stock's current price
@@ -264,10 +272,12 @@ public class StockMarket : MonoBehaviour
                 {
                     stock.currentPrice = 1.0f;
                 }
-
-                //UpdateStockUI(stock);
             }
         }
+
+        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        playerInventory.CalculateWallet();
+        playerInventory.SetStock();
     }
 
     private List<Stock> GetStocksByBranch(string branchName)
