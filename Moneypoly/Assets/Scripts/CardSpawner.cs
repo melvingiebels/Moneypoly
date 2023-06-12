@@ -72,7 +72,7 @@ public class CardSpawner : MonoBehaviour
             cardCanvas.worldCamera = Camera.main;
             cardInstance.GetComponent<CardController>().SetCardData(stock, quantity);
 
-            currentPosition += new Vector3(cardSpacing + cardRectTransform.rect.width, 0f, 0f);
+            currentPosition += new Vector3((cardSpacing * 2) + cardRectTransform.rect.width, 0f, 0f);
 
             yield return new WaitForSeconds(0.5f); // Delay of 0.5 seconds between each card spawn
         }

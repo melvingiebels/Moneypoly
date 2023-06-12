@@ -6,15 +6,19 @@ using UnityEngine;
 public class CardController : MonoBehaviour
 {
     public Stock cardData;
+    private PlayerInventory playerInventory;
     //declare the text ui to display the stock name
     public TextMeshProUGUI stockName;
-    public TextMeshProUGUI stockPrice;
+    public TextMeshProUGUI stockCurrentPrice;
+    public TextMeshProUGUI stockPreviousPrice;
     public TextMeshProUGUI stockPercentage;
+    public TextMeshProUGUI totalOwned;
+    public TextMeshProUGUI totalInvestment;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+     
     }
 
     // Update is called once per frame
@@ -23,16 +27,22 @@ public class CardController : MonoBehaviour
         
     }
 
+    public void sellStock()
+    {
+        PlayerInventory.SellStock(cardData);
+    }
+
     public void SetCardData(Stock cardData, int amount)
     {
+        this.cardData = cardData;
         stockName.text = cardData.stockName;
+        stockPreviousPrice.text = "€ "+ cardData.previousPrice.ToString("0.00");
+        stockCurrentPrice.text ="€ "+ cardData.currentPrice.ToString("0.00");
 
-        stockPrice.text ="€ "+ cardData.currentPrice.ToString("0.00");
-
-        string indicator = cardData.IsGoingUp() ? "▲ " : "▼ ";
-
+        string indicator = cardData.IsGoingUp() ? "▲" : "▼";
         stockPercentage.text = $"{indicator} <color={(cardData.IsGoingUp() ? "green" : "red")}>{cardData.GetPercentageChange().ToString("0.00")}%</color>";
 
-        // stockPercentage.text = indicator + cardData.GetPercentageChange().ToString("0.00") + "%";
+        totalOwned.text = "x" + amount.ToString();
+        totalInvestment.text = "€ " + (cardData.currentPrice * amount).ToString("0.00");
     }
 }

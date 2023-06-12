@@ -1409,8 +1409,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ad7705f58abc9409533d1f8bd79795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRound: 1
+  currentRound: 9
   totalRounds: 10
+  maxBranchPrecentageChange: 5
+  minBranchPrecentageChange: -5
+  maxBusinessPrecentageChange: 2
+  minBusinessPrecentageChange: -2
 --- !u!4 &1804751801
 Transform:
   m_ObjectHideFlags: 0
