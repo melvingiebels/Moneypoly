@@ -32,7 +32,7 @@ public class StockMarket : MonoBehaviour
     {
         branchNames = new string[]
         {
-            "Media en communicatie",
+            "Media en communicatie", 
             "Vastgoed",
             "Gezondheidszorg en -welzijn",
             "Milieu en Agrarische sector",
@@ -295,24 +295,52 @@ public class StockMarket : MonoBehaviour
         return stocksInBranch;
     }
 
+    public void UpdateBranchPriceByName(string branchName, int percentage, bool positive)
+    {
+        List<Stock> branchStocks = GetStocksByBranch(branchName);
 
-    //private void UpdateStockUI(Stock stock)
-    //{
-    //    string indicator = stock.IsGoingUp() ? "▲" : "▼";
-    //    string stockInfo = $"{stock.stockName} ({stock.tickerAbbreviation})\n Branch: {stock.branchName}\n Prev: {stock.previousPrice}\nCurr: {indicator} <color={(stock.IsGoingUp() ? "green" : "red")}>{stock.currentPrice}</color>";
+        // Update stock prices within the branch
+        foreach (Stock stock in branchStocks)
+        {
+            float change = stock.currentPrice * (percentage / 100.0f);
 
-    //    if (stock.stockName == "ABC Company")
-    //    {
-    //        stock1.text = stockInfo;
-    //    } 
-    //    else if (stock.stockName == "DEF Company")
-    //    {
-    //        stock2.text = stockInfo;
-    //    }
-    //    else if (stock.stockName == "XYZ Corporation")
-    //    {
-    //        stock3.text = stockInfo;
-    //    }
-    //}
+            if (positive)
+            {
+                stock.currentPrice += change;
+            }
+            else
+            {
+                stock.currentPrice -= change;
+            }
+        }
+
+        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        playerInventory.CalculateWallet();
+        playerInventory.SetStock();
+    }
+
+    public void UpdateStockPriceById(int stockId, int percentage, bool positive)
+    {
+        Stock stock = stocks[stockId];
+
+        if(stock != null)
+        {
+            float change = stock.currentPrice * (percentage / 100.0f);
+
+            if (positive)
+            {
+                stock.currentPrice += change;
+            }
+            else
+            {
+                stock.currentPrice -= change;
+            }
+
+            PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+            playerInventory.CalculateWallet();
+            playerInventory.SetStock();
+        }
+    }
+
 
 }
