@@ -627,10 +627,12 @@ MonoBehaviour:
     stockName: 
     tickerAbbreviation: 
     branchName: 
+    stockDescription: 
     currentPrice: 0
     previousPrice: 0
   stockName: {fileID: 2943599584611674685}
   stockPrice: {fileID: 1634043579334502302}
+  stockPercentage: {fileID: 1943956310613071220}
 --- !u!1 &2943599584611674687
 GameObject:
   m_ObjectHideFlags: 0

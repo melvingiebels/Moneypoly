@@ -20,7 +20,7 @@ public class PlayerInventory : MonoBehaviour
        
         buget = 2000;
         bugetValueText.text = "€" + buget.ToString();
-        stockNetWorthText.text = "€ " + netWorth.ToString();
+        stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
         cardSpawner = GetComponent<CardSpawner>();
 
     }
@@ -28,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
     void Update()
     {
         bugetValueText.text = "€" + buget.ToString();
-        stockNetWorthText.text = "€ " + netWorth.ToString();
+        stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
         
 
     }

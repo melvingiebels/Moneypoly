@@ -26,4 +26,9 @@ public class Stock
     {
         return currentPrice > previousPrice;
     }
+
+    public float GetPercentageChange()
+    {
+        return (currentPrice - previousPrice) / previousPrice * 100;
+    }
 }
