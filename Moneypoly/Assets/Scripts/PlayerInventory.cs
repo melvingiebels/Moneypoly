@@ -85,7 +85,12 @@ public class PlayerInventory : MonoBehaviour
     }
     public void DecreaseBudget(float amount)
     {
+        
         budget -= amount;
+        if(budget < 0)
+        {
+            budget = 0;
+        }   
     }
     public void SetStock()
     {
