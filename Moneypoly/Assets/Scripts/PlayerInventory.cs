@@ -23,7 +23,6 @@ public class PlayerInventory : MonoBehaviour
         stockNetWorthText.text = "€ " + netWorth.ToString();
         cardSpawner = GetComponent<CardSpawner>();
 
-
     }
 
     void Update()
@@ -55,6 +54,11 @@ public class PlayerInventory : MonoBehaviour
         
 
 
+    }
+
+    public List<Stock> GetWallet()
+    {
+        return wallet;
     }
     public void SetStock()
     {

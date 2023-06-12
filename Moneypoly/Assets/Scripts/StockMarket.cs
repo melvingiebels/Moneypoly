@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 public class StockMarket : MonoBehaviour
 {
 
-    private Stock[] stocks;
+    private List<Stock> stocks = new List<Stock>();
     private string[] branchNames;
     public int currentRound = 1;
     public int totalRounds = 10;
@@ -33,7 +33,7 @@ public class StockMarket : MonoBehaviour
             "Handel en dienstverlening"
         };
         // Create instances of stocks and assign values
-        stocks = new Stock[]
+        stocks = new List<Stock>
         {
          new Stock(
             "Meta Business",
@@ -211,7 +211,7 @@ public class StockMarket : MonoBehaviour
             playerInventory.BuyStock(stocks[0]);
             playerInventory.BuyStock(stocks[1]);
             playerInventory.BuyStock(stocks[2]);
-            Console.WriteLine("Stocks bought");
+            Debug.Log("Stocks bought");
         }
        else
         {
@@ -222,6 +222,7 @@ public class StockMarket : MonoBehaviour
 
     public void UpdateStockPrices()
     {
+        Debug.Log("Updating stock prices...");
         // Calculate the weight for price changes based on the current round
         float weight = 1.0f - ((float)currentRound / totalRounds);
 
@@ -264,10 +265,14 @@ public class StockMarket : MonoBehaviour
                 {
                     stock.currentPrice = 1.0f;
                 }
-
-                //UpdateStockUI(stock);
             }
         }
+
+        //PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        //playerInventory.GetWallet();
+        //CardSpawner cardSpawner = FindObjectOfType<CardSpawner>();
+       // cardSpawner.SetStocks(stocks);
+
     }
 
     private List<Stock> GetStocksByBranch(string branchName)

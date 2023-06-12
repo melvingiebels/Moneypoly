@@ -475,11 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ad7705f58abc9409533d1f8bd79795, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stock1: {fileID: 586637686}
-  stock2: {fileID: 1527620594}
-  stock3: {fileID: 134622952}
-  stocks: []
-  branchNames: []
   currentRound: 1
   totalRounds: 10
 --- !u!4 &568885644
