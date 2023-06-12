@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23cb9560860aac4439240fb1f582f97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Assets/NewsFlashes.csv
+  csvFile: {fileID: 4900000, guid: 61a4f7b4073fc8644a6cdef9ac785744, type: 3}
 --- !u!1001 &691157746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -515,5 +515,17 @@ PrefabInstance:
       propertyPath: newsFlashSubject
       value: 
       objectReference: {fileID: 1265493306}
+    - target: {fileID: 535842728722502986, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
+      propertyPath: m_fontSize
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 535842728722502986, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934346297229506332, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
+      propertyPath: m_text
+      value: Verder
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c5d7045916769c47b2c7817a64fe22f, type: 3}
