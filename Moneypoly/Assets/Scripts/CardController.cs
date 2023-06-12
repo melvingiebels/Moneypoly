@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardController : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class CardController : MonoBehaviour
     public TextMeshProUGUI stockPercentage;
     public TextMeshProUGUI totalOwned;
     public TextMeshProUGUI totalInvestment;
+    public Button sellButton;
 
     // Start is called before the first frame update
     void Start()
     {
-     
+        playerInventory = FindObjectOfType<PlayerInventory>();
+        sellButton = GetComponentInChildren<Button>();
+        sellButton.onClick.AddListener(sellStock);
     }
+
 
     // Update is called once per frame
     void Update()
@@ -29,7 +34,7 @@ public class CardController : MonoBehaviour
 
     public void sellStock()
     {
-        PlayerInventory.SellStock(cardData);
+        playerInventory.SellStock(cardData);
     }
 
     public void SetCardData(Stock cardData, int amount)

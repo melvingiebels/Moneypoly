@@ -28,7 +28,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        bugetValueText.text = "€" + budget.ToString();
+        bugetValueText.text = "€" + budget.ToString("0.00");
         stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
         
 
@@ -90,6 +90,13 @@ public class PlayerInventory : MonoBehaviour
     public void SetStock()
     {
         cardSpawner.SetStocks(stocks);
+    }
+    public void SellAllStock()
+    {
+        foreach (KeyValuePair<Stock, int> stock in stocks)
+        {
+            SellStock(stock.Key);
+        }
     }
 }
 
