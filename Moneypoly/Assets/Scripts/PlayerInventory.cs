@@ -56,6 +56,17 @@ public class PlayerInventory : MonoBehaviour
 
 
     }
+    public void SellStock(Stock stock)
+    {
+        buget += stock.currentPrice;
+        wallet.Remove(stock);
+        CalculateWallet();
+        SetStock();
+    }
+    public void DecreaseBudget(float amount)
+    {
+        buget -= amount;
+    }
     public void SetStock()
     {
         cardSpawner.SetStocks(wallet);
