@@ -14,72 +14,87 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5f;
     public TMP_Text dialogueText;
     private bool waitForInput = false;
+    private bool stopActions = false;
+    private bool isMoving = false;
+    private SpriteRenderer objectRenderer;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
-    // Update is called once per frame
+    private void Awake()
+    {
+        objectRenderer = GetComponent<SpriteRenderer>();
+    }
+
     void Update()
     {
-        
+
     }
+    internal IEnumerator WaitForInput(KeyCode keyCode)
+    {
+        waitForInput = true;
+
+        while (waitForInput)
+        {
+            yield return null;
+
+            if (Input.GetKeyDown(keyCode) && !stopActions)
+            {
+                waitForInput = false;
+            }
+        }
+    }
+
+
     public IEnumerator PlayRound(Transform[] waypoints)
     {
-        dialogueText.gameObject.SetActive(true);
-        dialogueText.text = "Press spacebar to start your turn, and roll the die";
-
-        waitForInput = true;
-
-        while (waitForInput)
+        dialogueText.text = "Press spacebar to start your turn and roll the dice";
+        yield return WaitForInput(KeyCode.Space);
+        if (!isMoving)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                dialogueText.gameObject.SetActive(false);
-                waitForInput = false;
-                yield return StartCoroutine(RollDie());
-            }
+            int sum = RollDie();
+            dialogueText.text = "Dice Roll: " + sum.ToString();
+
+            dialogueText.text = "Moving to the destination";
+
+            isMoving = true;
+            yield return MovePlayer(waypoints, sum);
+            isMoving = false;
+            dialogueText.text = "Press spacebar to end your turn";
+            yield return WaitForInput(KeyCode.Space);
         }
-
-        dialogueText.gameObject.SetActive(true);
-        dialogueText.text = "Moving to the destination";
-
-        // move the amount of waypoints of the dice that are rolled
-        yield return StartCoroutine(MovePlayer(waypoints));
-
-        // after this is over, show a button and wait for it to be pressed;
-        waitForInput = true;
-        while (waitForInput)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                dialogueText.gameObject.SetActive(false);
-                yield return StartCoroutine(RollDie());
-            }
-        }
-        // then the onclick of the button handles the rest
+        yield break;
     }
-    internal IEnumerator MovePlayer(Transform[] waypoints)
+
+    internal IEnumerator MovePlayer(Transform[] waypoints, int diceRoll)
     {
-        for (int i = startPoint; i < waypoints.Length; i++)
+        int targetWaypointIndex = (startPoint + diceRoll) % waypoints.Length;
+
+        for (int i = startPoint; i != targetWaypointIndex; i = (i + 1) % waypoints.Length)
         {
-            // moves to the desired waypoint
-            StartCoroutine(MoveToWaypoint(waypoints[i]));
+            yield return MoveToWaypoint(waypoints[i]);
         }
-        yield return null;
+
+        startPoint = targetWaypointIndex;
     }
+
     internal IEnumerator MoveToWaypoint(Transform waypoint)
     {
-        while (Vector3.Distance(transform.position, waypoint.position) > 0.1f)
+        isMoving = true;
+
+        while (Vector2.Distance(transform.position, waypoint.position) > 0.1f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, waypoint.position, movementSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, waypoint.position, movementSpeed * Time.deltaTime);
             yield return null;
         }
+
+        isMoving = false;
     }
-    internal IEnumerator RollDie()
+
+    internal int RollDie()
     {
-        // roll the dice
+        // Roll the dice
         int die1;
         int die2;
 
@@ -90,6 +105,14 @@ public class PlayerController : MonoBehaviour
         die1Text.text = die1.ToString();
         die2Text.text = die2.ToString();
 
-        yield return null;
+        return die1 + die2;
     }
+
+    public void Initialize(Sprite sprite,float yChord)
+    {
+        objectRenderer.sprite = sprite;
+        var transform = new Vector3(-152.3f, yChord);
+        objectRenderer.transform.position = transform;
+    }
+
 }

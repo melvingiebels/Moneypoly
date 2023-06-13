@@ -11,13 +11,13 @@ public class BoardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(PlayRounds());
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(PlayRounds());
+        
     }
 
     private IEnumerator PlayRounds()
@@ -25,8 +25,10 @@ public class BoardController : MonoBehaviour
         foreach (PlayerController player in players)
         {
             currentPlayerText.text = "Current player: " + player.name;
-            yield return StartCoroutine(player.PlayRound(waypoints));
 
+            yield return StartCoroutine(player.PlayRound(waypoints));
         }
+
+        StartCoroutine(PlayRounds());
     }
 }
