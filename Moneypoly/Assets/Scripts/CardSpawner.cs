@@ -8,6 +8,7 @@ public class CardSpawner : MonoBehaviour
 {
     public GameObject cardPrefab;
     private List<Stock> wallet = new List<Stock>();
+    private Dictionary<Stock, int> stocks = new();
     public float cardSpacing = 20.0f; // Spacing between each card
 
     // Start is called before the first frame update
@@ -22,9 +23,9 @@ public class CardSpawner : MonoBehaviour
 
     }
 
-    public void SetStocks(List<Stock> stocks)
+    public void SetStocks(Dictionary<Stock,int> stocks)
     {
-        wallet = stocks;
+        this.stocks = stocks;
         SpawnCards();
         
     }
@@ -41,14 +42,17 @@ public class CardSpawner : MonoBehaviour
 
     private IEnumerator SpawnCardsWithDelay(Vector3 startPosition, Vector3 currentPosition)
     {
-        List<Stock> walletCopy = new List<Stock>(wallet); // Create a copy of the wallet list
+        Dictionary<Stock, int> stocksCopy = new Dictionary<Stock, int>(stocks); // Create a copy of the stocks dictionary
         Canvas canvas = GetComponentInParent<Canvas>(); // Get the Canvas component of the parent
 
         RectTransform canvasRectTransform = canvas.GetComponent<RectTransform>();
         Vector2 canvasSize = canvasRectTransform.sizeDelta;
 
-        foreach (Stock cardData in walletCopy)
+        foreach (KeyValuePair<Stock, int> stockPair in stocksCopy)
         {
+            Stock stock = stockPair.Key;
+            int quantity = stockPair.Value;
+
             GameObject cardInstance = Instantiate(cardPrefab, canvas.transform);
 
             RectTransform cardRectTransform = cardInstance.GetComponent<RectTransform>();
@@ -66,13 +70,14 @@ public class CardSpawner : MonoBehaviour
 
             Canvas cardCanvas = cardInstance.GetComponentInChildren<Canvas>();
             cardCanvas.worldCamera = Camera.main;
-            cardInstance.GetComponent<CardController>().SetCardData(cardData);
+            cardInstance.GetComponent<CardController>().SetCardData(stock, quantity);
 
-            currentPosition += new Vector3(cardSpacing + cardRectTransform.rect.width, 0f, 0f);
+            currentPosition += new Vector3((cardSpacing * 2) + cardRectTransform.rect.width, 0f, 0f);
 
             yield return new WaitForSeconds(0.5f); // Delay of 0.5 seconds between each card spawn
         }
     }
+
 
 
     void DestroyExistingCards()
