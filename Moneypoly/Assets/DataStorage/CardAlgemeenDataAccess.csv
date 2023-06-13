@@ -1,0 +1,16 @@
+﻿Id;BranchName;BranchId;CompanyName;CompanyID;Description;ChangeBool;Percentage
+1;Handel en dienstverlening;5;N/A;N/A;Oh nee! Er is een oorlog gaande in Oekraïne, waarbij de gehele EU zich tegen Rusland keert. Dit heeft een negatieve invloed op de aandelen van dienstverlening.;FALSE;10
+2;Gezondheidszorg en -welzijn;2;N/A;N/A;Er zijn investeringen vanuit de overheid op de zorgsector, medewerkers krijgen 7,5% meer uitbetaald.  Dit heeft  een positieve invloed op de zorgsector.;TRUE;5
+3;Vastgoed;1;N/A;N/A;De bouwvakkers gaan staken, de zomerdagen worden warmer en zij eisen een langere bouwvakvakantie of een extra toeslag voor het werken in 30+ graden. Dit heeft een negatieve invloed op de vastgoed sector. ;FALSE;5
+4;ICT / Technisch;4;KPN;2;Er zijn al wekenlang storingen vanuit klanten over telefoneren en glasvezelinternet in Nederland bij verschillende providers. Dit heeft een negatieve invloed op KPN.;FALSE;5
+5;Vastgoed;1;N/A;N/A;Vanwege enorme droogte zijn bepaalde aanvoerwegen voor schepen niet begaanbaar, hierdoor zijn er enorme vertragingen in de aanlevering van bouwmaterialen. Dit heeft een negatieve invloed op de vastgoed sector.;FALSE;5
+6;ICT / Technisch;4;Tesla;16;Vanaf 2030 zullen alle geproduceerde auto’s elektrische moeten rijden. Dit heeft een positieve invloed voor de ICT & Tesla.;TRUE;5
+7;N/A;N/A;Google;18;Chat GPT is in opmars en is in handen van Google. Dit heeft een positieve invloed voor Google.;TRUE;5
+8;N/A;N/A;META;0;Een groot bedrijf heeft Facebook, Instagram en WhatsApp overgenomen. Dit heeft een positieve invloed voor Meta Business.;TRUE;5
+9;N/A;N/A;Heineken;21;Heineken heeft nieuwe overeenkomsten gesloten en bereid nog eens uit naar 4 nieuwe landen. Dit heeft een positieve invloed voor Heineken.;TRUE;5
+10;N/A;N/A;Shell;14;Bill Gates twittert over hoe belachelijk hij het vindt hoe Shell met de uitstoot van schadelijke stoffen omgaat. Dit heeft een negatieve invloed voor shell.;FALSE;5
+11;N/A;N/A;PostNL;22;Tijdens de kerst is het immens druk bij de postpunten met kerstcadeaus. Dit heeft een positieve invloed voor PostNL.;TRUE;5
+12;N/A;N/A;Microsoft;19;Er komt een schandaal naar buiten over hoe Microsoft is omgegaan met haar medewerkers, iedereen heeft het er over. Dit heeft een negatieve invloed voor Microsoft.;FALSE;5
+13;Milieu en Agrarische sector  ;3;N/A;N/A;Er komt een subsidie voor duurzame energie winning. Dit heeft een positieve effect op de Mileu en agrarische sector.;TRUE;5
+14;N/A;N/A;Aurora;9;Aurora canabis publiceert haar kwartaalrapportage met vele malen lagere winstcijfers dan verwacht. Dit heeft een Negatieve invloed voor Aurora canabis.;FALSE;5
+15;N/A;N/A;Heineken;21;Heineken slaat toe met een dubbele overname in Zuid-Amerika en bereid hiermee haar aandeel uit. Dit heeft een positieve invloed voor Heineken.;TRUE;5

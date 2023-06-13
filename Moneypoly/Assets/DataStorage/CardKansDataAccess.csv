@@ -1,0 +1,9 @@
+﻿Id;Description;Geld;ChangeBool;Action
+1;Je hebt geluk! Je hebt loonsverhoging gehad op werk, je krijgt;100;TRUE;FALSE
+2;Je hebt geluk! Je hebt een deel van je vakantiegeld gehad op werk, je krijgt;150;TRUE;FALSE
+3;Oh nee! De vastgoedmarkt krimpt, je verliest;100;FALSE;FALSE
+4;Ga nu naar het dichtstbijzijnde aandeel dat nog niet verkocht is  ;0;FALSE;TRUE
+5;Probeer het opnieuw, je mag nog een keer gooien!  ;0;FALSE;TRUE
+6;Klop… klop… wie is daar? De deurwaarder staat voor de deur, je moet per direct naar de gevangenis.   ;0;FALSE;TRUE
+7;Je hebt nog een lening die afbetaald moet worden! Je betaald;200;FALSE;FALSE
+8;Er bleek te veel dividendbelasting te zijn betaald! Je ontvangt nog eens €….  ;100;TRUE;FALSE
