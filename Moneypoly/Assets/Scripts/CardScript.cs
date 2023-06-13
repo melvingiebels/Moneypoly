@@ -9,7 +9,9 @@ public class AlgemeenCard
 {
     public int id;
     public string branch;
+    public int branchId;
     public string company;
+    public int companyId;
     public string description;
     public bool changeBool;
     public int percentage;
@@ -165,10 +167,12 @@ public class CardScript : MonoBehaviour
             algemeenDeck.Add(new AlgemeenCard());
             algemeenDeck[i].id = int.Parse(fields[0]);
             algemeenDeck[i].branch = fields[1];
-            algemeenDeck[i].company = fields[2];
-            algemeenDeck[i].description = fields[3];
-            algemeenDeck[i].changeBool = bool.Parse(fields[4]);
-            algemeenDeck[i].percentage = int.Parse(fields[5]);
+            if (fields[2] != "N/A") algemeenDeck[i].branchId = int.Parse(fields[2]);
+            algemeenDeck[i].company = fields[3];
+            if(fields[4] != "N/A") algemeenDeck[i].companyId = int.Parse(fields[4]);
+            algemeenDeck[i].description = fields[5];
+            algemeenDeck[i].changeBool = bool.Parse(fields[6]);
+            algemeenDeck[i].percentage = int.Parse(fields[7]);
 
         }
     }
