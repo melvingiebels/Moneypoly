@@ -40,12 +40,19 @@ public class CardController : MonoBehaviour
     public void SetCardData(Stock cardData, int amount)
     {
         this.cardData = cardData;
-        stockName.text = cardData.stockName;
+        stockName.text = $"{cardData.stockName } ({cardData.tickerAbbreviation})";
         stockPreviousPrice.text = "€ "+ cardData.previousPrice.ToString("0.00");
         stockCurrentPrice.text ="€ "+ cardData.currentPrice.ToString("0.00");
 
-        string indicator = cardData.IsGoingUp() ? "▲" : "▼";
-        stockPercentage.text = $"{indicator} <color={(cardData.IsGoingUp() ? "green" : "red")}>{cardData.GetPercentageChange().ToString("0.00")}%</color>";
+        if (cardData.GetPercentageChange() == 0)
+        {
+            stockPercentage.text = "<color=white>0.00%</color>";
+        }
+        else
+        {
+            string indicator = cardData.IsGoingUp() ? "▲" : "▼";
+            stockPercentage.text = $"{indicator} <color={(cardData.IsGoingUp() ? "green" : "red")}>{cardData.GetPercentageChange().ToString("0.00")}%</color>";
+        }
 
         totalOwned.text = "x" + amount.ToString();
         totalInvestment.text = "€ " + (cardData.currentPrice * amount).ToString("0.00");
