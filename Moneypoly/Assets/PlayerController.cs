@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
@@ -18,10 +19,15 @@ public class PlayerController : MonoBehaviour
     private bool isMoving = false;
     private SpriteRenderer objectRenderer;
 
+
+
     void Start()
     {
+        
+        
 
     }
+  
     private void Awake()
     {
         objectRenderer = GetComponent<SpriteRenderer>();
@@ -53,7 +59,8 @@ public class PlayerController : MonoBehaviour
         yield return WaitForInput(KeyCode.Space);
         if (!isMoving)
         {
-            int sum = RollDie();
+            yield return RollDie();
+            int sum = 1;
             dialogueText.text = "Dice Roll: " + sum.ToString();
 
             dialogueText.text = "Moving to the destination";
@@ -94,18 +101,16 @@ public class PlayerController : MonoBehaviour
 
     internal int RollDie()
     {
-        // Roll the dice
-        int die1;
-        int die2;
+        GameObject[] dice = GameObject.FindGameObjectsWithTag("Dice");
 
-        Random rnd = new Random();
-        die1 = rnd.Next(1, 7);
-        die2 = rnd.Next(1, 7);
+        var diceOne = dice[0].GetComponent<Dice>();
+        var diceTwo = dice[1].GetComponent<Dice>();
 
-        die1Text.text = die1.ToString();
-        die2Text.text = die2.ToString();
+        StartCoroutine(diceOne.RollDiceAnimation());
+        StartCoroutine(diceTwo.RollDiceAnimation());
 
-        return die1 + die2;
+       return diceOne.RollDice() + diceTwo.RollDice();
+
     }
 
     public void Initialize(Sprite sprite,float yChord)

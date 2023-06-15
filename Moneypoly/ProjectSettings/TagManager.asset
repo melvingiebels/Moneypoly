@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TextCardTitle
   - TextCardDescription
+  - Dice
   layers:
   - Default
   - TransparentFX
