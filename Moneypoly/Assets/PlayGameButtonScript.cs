@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayGameButtonScript : MonoBehaviour
 {
     public List<PlayerSelectTab> playerSelectedScreens;
-
+    public GameObject inventoryScreenPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,19 +20,49 @@ public class PlayGameButtonScript : MonoBehaviour
     {
         
     }
-    public void StartGame()
+    public void StartGameButtonClick()
     {
         SceneManager.UnloadSceneAsync("PlayGameScene");
         SceneManager.LoadScene("MauriceScene");
-        Scene loadedScene = SceneManager.GetSceneByName("MauriceScene");
-        float yChord = -164f;
-        foreach (PlayerSelectTab playerSelectTab in playerSelectedScreens)
+
+        StartCoroutine(StartGame());
+    }
+    public IEnumerator StartGame()
+    {
+        
+        string sceneName = "MauriceScene";
+        Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+
+        if (!loadedScene.isLoaded)
         {
-            GameObject player = new GameObject("Player" + playerSelectTab.PlayerNameText);
-            player.transform.SetParent(loadedScene.GetRootGameObjects()[0].transform); // Attach to the root object of the scene
-            PlayerController playerController = player.AddComponent<PlayerController>();
-            playerController.Initialize(playerSelectTab.PlayerImage.sprite, yChord++); // Pass player-specific parameters
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+            loadedScene = SceneManager.GetSceneByName(sceneName);
         }
+
+        if (loadedScene.isLoaded)
+        {
+            BoardController boardController = loadedScene.GetRootGameObjects().FirstOrDefault(go => go.name == "BoardController")?.GetComponent<BoardController>();
+
+            float yChord = -164f;
+            foreach (PlayerSelectTab playerSelectTab in playerSelectedScreens)
+            {
+                GameObject player = new GameObject("Player" + playerSelectTab.PlayerNameText);
+                player.transform.SetParent(boardController.transform); // Attach to the root object of the scene
+                PlayerController playerController = player.AddComponent<PlayerController>();
+                playerController.playerInventory = new PlayerInventory();
+                GameObject inventoryScreen = Instantiate(inventoryScreenPrefab, player.transform);
+
+                playerController.Initialize(playerSelectTab.PlayerImage.sprite, yChord++); // Pass player-specific parameters
+                boardController.players.Add(playerController);
+            }
+        }
+       
     }
 
     public void BackToMainMenu()

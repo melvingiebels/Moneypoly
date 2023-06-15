@@ -22,7 +22,7 @@ public class CardController : MonoBehaviour
     {
         playerInventory = FindObjectOfType<PlayerInventory>();
         sellButton = GetComponentInChildren<Button>();
-        sellButton.onClick.AddListener(sellStock);
+        //sellButton.onClick.AddListener(sellStock);
     }
 
 
@@ -53,7 +53,6 @@ public class CardController : MonoBehaviour
             string indicator = cardData.IsGoingUp() ? "▲" : "▼";
             stockPercentage.text = $"{indicator} <color={(cardData.IsGoingUp() ? "green" : "red")}>{cardData.GetPercentageChange().ToString("0.00")}%</color>";
         }
-
         totalOwned.text = "x" + amount.ToString();
         totalInvestment.text = "€ " + (cardData.currentPrice * amount).ToString("0.00");
     }

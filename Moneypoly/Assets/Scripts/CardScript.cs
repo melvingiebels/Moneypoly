@@ -92,7 +92,6 @@ public class CardScript : MonoBehaviour
                 algemeenDeckEmpty = new List<AlgemeenCard>();
             }
 
-
             Console.Write(algemeenDeck);
             int rnd = Random.Range(0, algemeenDeck.Count);
             TextMeshProUGUI[] txtmeshpro = algemeenCardDeckGameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
@@ -112,7 +111,6 @@ public class CardScript : MonoBehaviour
             algemeenCardDeckGameObject.SetActive(true);
             algemeenDeckEmpty.Add(algemeenDeck[rnd]);
             algemeenDeck.Remove(algemeenDeck[rnd]);
-
         }
     }
 

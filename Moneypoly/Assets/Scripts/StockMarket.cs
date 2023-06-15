@@ -211,22 +211,25 @@ public class StockMarket : MonoBehaviour
             10.0f
         )
         };
-        // Find the PlayerInventory script in the scene
-        playerInventory = GameObject.FindObjectOfType<PlayerInventory>();  
-        if (playerInventory != null)
-        {
-            playerInventory.BuyStock(stocks[0],2);
-            playerInventory.BuyStock(stocks[1],1);
-            playerInventory.BuyStock(stocks[5],10);
-            Debug.Log("Stocks bought");
-        }
-       else
-        {
-            Debug.LogError("No PlayerInventory script found in the scene!");
-        }
+       // // Find the PlayerInventory script in the scene
+       // playerInventory = GameObject.FindObjectOfType<PlayerInventory>();  
+       // if (playerInventory != null)
+       // {
+       //     playerInventory.BuyStock(stocks[0],2);
+       //     playerInventory.BuyStock(stocks[1],1);
+       //     playerInventory.BuyStock(stocks[5],10);
+       //     Debug.Log("Stocks bought");
+       // }
+       //else
+       // {
+       //     Debug.LogError("No PlayerInventory script found in the scene!");
+       // }
        
     }
-
+    public List<Stock> GetStocks() 
+    {
+        return this.stocks;
+    }
     public void UpdateStockPrices()
     {
         Debug.Log("Updating stock prices...");
