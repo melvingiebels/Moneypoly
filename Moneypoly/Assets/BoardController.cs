@@ -13,8 +13,8 @@ public class BoardController : MonoBehaviour
     public TMP_Text currentPlayerText;
     public StockMarket StockMarket;
     public GameObject waypointPrefab;
-
-
+    public int rounds;
+    public TMP_Text roundText;
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
 
@@ -88,6 +88,9 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayRounds()
     {
+        rounds += 1;
+        roundText.text = "Ronde: " + rounds.ToString() + "/10";
+
         foreach (PlayerController player in players)
         {
             currentPlayerText.text = "Current player: " + player.name;
@@ -99,7 +102,11 @@ public class BoardController : MonoBehaviour
         {
             SceneManager.LoadScene("NewsFlash", LoadSceneMode.Additive);
         }
-        StartCoroutine(PlayRounds());
+
+        if (rounds <= 10)
+        {
+            StartCoroutine(PlayRounds());
+        }
     }
 
     private void InitDeckOfCards()
