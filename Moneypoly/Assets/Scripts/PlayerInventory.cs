@@ -6,16 +6,17 @@ using System;
 
 public class PlayerInventory : MonoBehaviour
 {
-    private float budget;
+    public float budget;
     public TextMeshProUGUI bugetValueText;
     public TextMeshProUGUI stockNetWorthText;
+    public TMP_Text PlayerNameText;
 
     private List<Stock> wallet = new();
     private float netWorth;
     public GameObject cardPrefab;
     public CardSpawner cardSpawner;
     private Dictionary<Stock, int> stocks = new();
-
+    private PlayerController playerController;
     void Start()
     {
        
@@ -23,6 +24,7 @@ public class PlayerInventory : MonoBehaviour
         bugetValueText.text = "€" + budget.ToString();
         stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
         cardSpawner = GetComponent<CardSpawner>();
+        playerController = GetComponentInParent<Transform>().parent.GetComponentInParent<PlayerController>();
 
     }
 
@@ -30,7 +32,7 @@ public class PlayerInventory : MonoBehaviour
     {
         bugetValueText.text = "€" + budget.ToString("0.00");
         stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
-        
+        PlayerNameText.text = playerController.name;
 
     }
 
@@ -59,10 +61,6 @@ public class PlayerInventory : MonoBehaviour
             CalculateWallet();
             SetStock();
         }
-        
-        
-
-
     }
 
     public List<Stock> GetWallet()
