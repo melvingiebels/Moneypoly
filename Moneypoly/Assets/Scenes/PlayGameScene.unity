@@ -7451,7 +7451,7 @@ MonoBehaviour:
   - {fileID: 331595701}
   - {fileID: 1642209458}
   - {fileID: 26224693}
-  inventoryScreenPrefab: {fileID: 6578951659237597815, guid: 3e8b9edd94a2ee14e8a1d53ce87ea9cb, type: 3}
+  playerSelectionManager: {fileID: 5271819703081327798, guid: 0e83f86cbba7bb640a4c08cd16984b14, type: 3}
 --- !u!114 &1748314819
 MonoBehaviour:
   m_ObjectHideFlags: 0
