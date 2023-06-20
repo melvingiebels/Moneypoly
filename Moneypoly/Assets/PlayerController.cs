@@ -10,8 +10,6 @@ using Random = System.Random;
 
 public class PlayerController : MonoBehaviour
 {
-    public TMP_Text die1Text;
-    public TMP_Text die2Text;
     public int startPoint;
     public float movementSpeed = 5f;
     public TMP_Text dialogueText;
@@ -23,9 +21,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LocationCardScript locationCard;
     public PlayerInventory playerInventory;
     private bool isOpen= false;
+
+    private GameObject[] Dice;
+    
     void Start()
     {
-
+        Dice = GameObject.FindGameObjectsWithTag("Dice");
     }
     private void Awake()
     {
@@ -67,7 +68,11 @@ public class PlayerController : MonoBehaviour
 
         if (!isMoving)
         {
-            int sum = RollDie();
+            int sum = 5;
+            yield return RollDie((diceResult) =>
+            {
+                sum = diceResult;
+            });
             dialogueText.text = "Dice Roll: " + sum.ToString();
 
             dialogueText.text = "Moving to the destination";
@@ -113,20 +118,21 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    internal int RollDie()
+    internal IEnumerator RollDie(System.Action<int> callback)
     {
+        Coroutine a = StartCoroutine(Dice[0].GetComponent<Dice>().RollDiceAnimation());
+        Coroutine b = StartCoroutine(Dice[1].GetComponent<Dice>().RollDiceAnimation());
+
+        yield return a; yield return b;
+
+        yield return new WaitForSeconds(0);
+
+
         // Roll the dice
-        int die1;
-        int die2;
+        int die1 = Dice[0].GetComponent<Dice>().RollDice();
+        int die2 = Dice[1].GetComponent<Dice>().RollDice();
 
-        Random rnd = new Random();
-        die1 = rnd.Next(1, 7);
-        die2 = rnd.Next(1, 7);
-
-        die1Text.text = die1.ToString();
-        die2Text.text = die2.ToString();
-
-        return die1 + die2;
+        callback(die1 + die2);
     }
 
     public void Initialize(Sprite sprite,float yChord)

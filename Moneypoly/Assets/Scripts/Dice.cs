@@ -31,15 +31,16 @@ public class Dice : MonoBehaviour
     public int RollDice()
     {
         Random rnd = new Random();
-        int Die = 0;
-        Die = rnd.Next(0, 5);
+        int die = 0;
+        die = rnd.Next(0, 5);
 
         // Set sprite to upper face of dice from array according to random value
-        dice1 = diceSides[Die];
+        dice1 = diceSides[die + 1];
 
         objectRenderer.sprite = dice1;
-        Debug.Log(Die);
-        return Die + 1;
+        
+        Debug.Log("DiceNumber: " + die);
+        return die + 1;
 
     }
 
@@ -48,22 +49,20 @@ public class Dice : MonoBehaviour
         // Roll the dice
         Random rnd = new Random();
         audio.Play();
-        int Die = 0;
+        int die = 0;
         for (int i = 0; i <= 20; i++)
         {
             // Pick up random value from 0 to 5 (All inclusive)
-            Die = rnd.Next(0, 5);
+            die = rnd.Next(0, 5);
 
             // Set sprite to upper face of dice from array according to random value
-            dice1 = diceSides[Die];
+            dice1 = diceSides[die];
 
             objectRenderer.sprite = dice1;
 
             // Pause before next itteration
             yield return new WaitForSeconds(0.05f);
         }
-        
-        yield return Die + 1;
 
     }
 }
