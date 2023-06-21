@@ -13,7 +13,7 @@ public class VideoPlayerController : MonoBehaviour
     public TextMeshProUGUI newsFlashText;
     public TextMeshProUGUI newsFlashSubject;
     public Button continueButton;
-    private AudioManager audioManager;
+    public AudioManager audioManager;
     private NewsFlashImporter newsFlashImporter;
 
     private List<NewsFlash> newsFlashes;
@@ -49,6 +49,7 @@ public class VideoPlayerController : MonoBehaviour
         
 
         continueButton.onClick.AddListener(CloseScreen);
+       
     }
 
 
@@ -72,14 +73,20 @@ public class VideoPlayerController : MonoBehaviour
         transform.parent?.gameObject.SetActive(false);
 
         // Stop the "Nostechno" coroutine from the AudioManager (assuming it's implemented as a coroutine)
-        audioManager?.StopCoroutine("Nostechno");
+        audioManager?.StopMusic("Nostechno");
       
 
         // Close the news elements
         CloseNews();
 
+        BackToGame();
 
 
+    }
+    public void BackToGame()
+    {
+        BoardController boardController = FindObjectOfType<BoardController>();
+        boardController?.OpenGame();
     }
     public void SetNewsFlash(NewsFlash newsFlash)
     {
