@@ -17,6 +17,7 @@ public class VideoPlayerController : MonoBehaviour
     private NewsFlashImporter newsFlashImporter;
 
     private List<NewsFlash> newsFlashes;
+    private NewsFlash newsFlash;
     void Start()
     {
         rawImage.enabled = true;
@@ -86,7 +87,7 @@ public class VideoPlayerController : MonoBehaviour
     public void BackToGame()
     {
         BoardController boardController = FindObjectOfType<BoardController>();
-        boardController?.OpenGame();
+        boardController?.OpenGame(newsFlash);
     }
     public void SetNewsFlash(NewsFlash newsFlash)
     {
@@ -108,7 +109,7 @@ public class VideoPlayerController : MonoBehaviour
         if (newsFlashes != null && newsFlashes.Count > 0)
         {
             int randomIndex = UnityEngine.Random.Range(0, newsFlashes.Count);
-            NewsFlash newsFlash = newsFlashes[randomIndex];
+            this.newsFlash = newsFlashes[randomIndex];
             newsFlashText.text = newsFlash.text;
             newsFlashSubject.text = newsFlash.subject;
         }
