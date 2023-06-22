@@ -18,8 +18,9 @@ public class NewsFlash
         this.id = id;
         this.subject = subject;
         this.text = text;
-        this.negativeEffectText = negativeEffectText;
         this.positiveEffectText = positiveEffectText;
+        this.negativeEffectText = negativeEffectText;
+        
         this.isPositive = isPositive;
         this.effectOnStockPrice = effectOnStockPrice;
         this.branchName = branchName;

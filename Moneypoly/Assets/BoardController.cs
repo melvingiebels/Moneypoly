@@ -134,7 +134,7 @@ public class BoardController : MonoBehaviour
         {
             Debug.Log("NewsEffectRound is equal to rounds");
             //update the stock price
-
+            Debug.Log(newsFlash);
             StockMarket.UpdateBranchPriceByName(newsFlash.branchName, newsFlash.effectOnStockPrice, newsFlash.isPositive);
             //show the newsPopup
             newsPopup.SetActive(true);
@@ -163,16 +163,16 @@ public class BoardController : MonoBehaviour
         // Set the parent of the instantiated NewsFlashScreen to canvas and preserve the world position
         RectTransform newsFlashRectTransform = newsFlashScreen.GetComponent<RectTransform>();
         newsFlashRectTransform.SetParent(canvas.transform, false);
-        // Match the size of the NewsFlashScreen RectTransform to the canvas size
-        newsFlashRectTransform.anchorMin = Vector2.zero;
-        newsFlashRectTransform.anchorMax = Vector2.one;
-        newsFlashRectTransform.pivot = new Vector2(0.5f, 0.5f);
-        newsFlashRectTransform.sizeDelta = Vector2.zero;
+        // Calculate the size and position of the NewsFlashScreen relative to the canvas size
+        Vector2 canvasSize = canvas.GetComponent<RectTransform>().sizeDelta;
+        newsFlashRectTransform.sizeDelta = canvasSize;
+        newsFlashRectTransform.anchoredPosition = Vector2.zero;
         // Activate the instantiated NewsFlashScreen
         newsFlashScreen.SetActive(true);
         Debug.Log("Newsflash prefab instantiated.");
         HideGame();
     }
+
 
     public void HideGame()
     {

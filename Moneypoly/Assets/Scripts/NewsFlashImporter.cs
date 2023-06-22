@@ -28,8 +28,8 @@ public class NewsFlashImporter : MonoBehaviour
                     int id = int.Parse(values[0]);
                     string subject = values[1];
                     string text = values[2];
-                    string negativeEffectText = values[3];
-                    string positiveEffectText = values[4];
+                    string positiveEffectText = values[3];
+                    string negativeEffectText = values[4];
                     bool isPositive = bool.Parse(values[5]);
                     int effectOnStockPrice = int.Parse(values[6]);
                     string branchName = values[7];

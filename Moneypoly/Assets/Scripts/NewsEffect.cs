@@ -33,9 +33,9 @@ public class NewsEffect : MonoBehaviour
         });
         newsSubject.text = newsFlash.subject;
         newsText.text = newsFlash.text;
-        if (newsFlash.isPositive)
+        if (newsFlash.isPositive!)
         {
-            
+            Debug.Log(newsFlash.isPositive);
             newsText.text = newsFlash.positiveEffectText;
             newsEffectText.text = "🠉 " + newsFlash.effectOnStockPrice.ToString() + "    voor: "+ newsFlash.branchName;
             //set text color to green
