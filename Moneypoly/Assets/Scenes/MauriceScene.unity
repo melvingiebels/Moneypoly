@@ -1125,6 +1125,11 @@ MonoBehaviour:
   rounds: 0
   roundText: {fileID: 598789311}
   newsFlashPrefab: {fileID: 3838454781692383825, guid: 6a09f23ca1f8fb547ac2590e95a3fda9, type: 3}
+  newsFlashHappend: 0
+  newsFlashChance: 0.3
+  hold: 0
+  grid: {fileID: 1417267847}
+  canvas: {fileID: 167722781}
 --- !u!1 &1417267846
 GameObject:
   m_ObjectHideFlags: 0
