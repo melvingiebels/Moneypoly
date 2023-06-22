@@ -6,6 +6,8 @@ using UnityEngine;
 public class WaypointComponent : MonoBehaviour
 {
     public Stock Stock;
+    private CardScript CardScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +23,9 @@ public class WaypointComponent : MonoBehaviour
     public void SetStockData(Stock stock)
     {
         Stock  = stock;
+    }
+    public void SetCardData()
+    {
+        CardScript = FindObjectOfType<CardScript>();
     }
 }

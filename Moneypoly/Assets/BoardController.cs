@@ -55,7 +55,14 @@ public class BoardController : MonoBehaviour
             {
                 // Customize the waypoint properties based on the stock data
                 waypointComponent.SetStockData(cards[waypointIndex].Stock);
-            } 
+            } else if (cards[waypointIndex].specialWaypoint != null)
+            {
+
+            }
+            else
+            {
+                waypointComponent.SetCardData();
+            }
             // else, init the other types of waypoints
 
             // Set the parent of the waypoint to keep the hierarchy organized 
