@@ -102,7 +102,7 @@ public class BoardController : MonoBehaviour
         
         //increase the chance of a newsflash
         newsFlashChance += 0.1f;
-        if (UnityEngine.Random.value <= 1f && newsFlashHappend == false && hold == false)
+        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
         {
 
             hold = true;
@@ -156,7 +156,7 @@ public class BoardController : MonoBehaviour
     public void StartNewsFlash()
     {
         newsEffectRound = rounds;
-        newsEffectRound += 1; // Increment the value by 1
+        newsEffectRound += 2; // Increment the value by 1
         Debug.Log("NewsEffectRound is set to: " + newsEffectRound);
         newsFlashHappend = true;
         GameObject newsFlashScreen = Instantiate(newsFlashPrefab, canvas.transform, false);
