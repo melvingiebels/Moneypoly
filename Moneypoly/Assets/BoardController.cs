@@ -18,6 +18,9 @@ public class BoardController : MonoBehaviour
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
 
+    // Reference to the Scoreboard component
+    public Scoreboard scoreboard;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,8 @@ public class BoardController : MonoBehaviour
     private void StartGame()
     {
         InitDeckOfCards();
+        scoreboard.setScoreBoard();
+
         float yValue = -140f;
         float xValue = -150f;
         Vector3 position = new Vector2(-150f, yValue);
@@ -88,6 +93,8 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayRounds()
     {
+        // Update the scoreboard at the end of the game
+        scoreboard.updateScoreboard();
         rounds += 1;
         roundText.text = "Ronde: " + rounds.ToString() + "/10";
 
