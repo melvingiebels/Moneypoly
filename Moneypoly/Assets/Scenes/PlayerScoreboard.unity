@@ -1528,6 +1528,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520422, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 209.1679
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520422, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 36.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520422, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 94.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520422, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 29.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520423, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_text
+      value: "\u20AC 2000"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520423, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_fontSize
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520423, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_margin.z
+      value: 22.926132
+      objectReference: {fileID: 0}
+    - target: {fileID: 2956219364177520423, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec43ef03fde4ccc428ea1a237f1ed7cd, type: 3}
 --- !u!1001 &3647944620567220355
