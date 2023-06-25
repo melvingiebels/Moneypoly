@@ -7,9 +7,6 @@ using System;
 public class PlayerInventory : MonoBehaviour
 {
     public float budget;
-    public TextMeshProUGUI bugetValueText;
-    public TextMeshProUGUI stockNetWorthText;
-    public TMP_Text PlayerNameText;
 
     private List<Stock> wallet = new();
     public float netWorth;
@@ -21,8 +18,6 @@ public class PlayerInventory : MonoBehaviour
     {
        
         budget = 2000;
-        bugetValueText.text = "€" + budget.ToString();
-        stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
         cardSpawner = GetComponent<CardSpawner>();
         playerController = GetComponentInParent<PlayerController>();
         playerController.playerInventory = this;
@@ -31,9 +26,6 @@ public class PlayerInventory : MonoBehaviour
 
     void Update()
     {
-        bugetValueText.text = "€" + budget.ToString("0.00");
-        stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
-        PlayerNameText.text = playerController.name;
 
     }
 
