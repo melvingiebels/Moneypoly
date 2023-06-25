@@ -35,7 +35,7 @@ public class Dice : MonoBehaviour
         die = rnd.Next(0, 5);
 
         // Set sprite to upper face of dice from array according to random value
-        dice1 = diceSides[die + 1];
+        dice1 = diceSides[die];
 
         objectRenderer.sprite = dice1;
         
@@ -63,6 +63,6 @@ public class Dice : MonoBehaviour
             // Pause before next itteration
             yield return new WaitForSeconds(0.05f);
         }
-
+        yield return die;
     }
 }
