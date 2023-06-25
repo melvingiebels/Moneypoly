@@ -25,7 +25,8 @@ public class BoardController : MonoBehaviour
     private NewsFlash newsFlash;
     private int newsEffectRound = 9;
     public GameObject newsPopup;
- 
+    private GameObject newsFlashScreen;
+
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
 
@@ -115,60 +116,55 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayRounds()
     {
-        scoreboard.updateScoreboard();
-        //increase the chance of a newsflash
-
-        if (UnityEngine.Random.value <= newsFlashChance && newsFlashHappend == false && hold == false && rounds > 1)
+        while (rounds <= 10)
         {
-
-            hold = true;
-            if (newsFlashPrefab != null)
-            {
-                StartNewsFlash();
-            }
-            else
-            {
-                Debug.LogWarning("NewsFlashScreen prefab reference is null. Assign the prefab in the Inspector.");
-            }
-        }
-
-        if (hold == false)
-        {
-            StockMarket.UpdateStockPrices();
             scoreboard.updateScoreboard();
-            rounds += 1;
-            newsFlashChance += 0.15f;
-            roundText.text = "Ronde: " + rounds.ToString() + "/10";
-            
-            foreach (PlayerController player in players)
-            {
-                currentPlayerText.text = "Current player: " + player.name;
+            // Increase the chance of a newsflash
 
-                yield return StartCoroutine(player.PlayRound(Waypoints));
+            if (UnityEngine.Random.value <= newsFlashChance && newsFlashHappend == false && hold == false && rounds > 1)
+            {
+                hold = true;
+                if (newsFlashPrefab != null)
+                {
+                    StartNewsFlash();
+                }
+                else
+                {
+                    Debug.LogWarning("NewsFlashScreen prefab reference is null. Assign the prefab in the Inspector.");
+                }
+            }
+
+            if (hold == false)
+            {
+                StockMarket.UpdateStockPrices();
+                scoreboard.updateScoreboard();
+                rounds += 1;
+                newsFlashChance += 0.15f;
+                roundText.text = "Ronde: " + rounds.ToString() + "/10";
+
+                foreach (PlayerController player in players)
+                {
+                    currentPlayerText.text = "Current player: " + player.name;
+
+                    yield return StartCoroutine(player.PlayRound(Waypoints));
+                }
+            }
+
+            // Check if newsEffectRound is not null and equal to the current round
+            if (newsEffectRound == rounds)
+            {
+                Debug.Log("NewsEffectRound is equal to rounds");
+                // Update the stock price
+                Debug.Log(newsFlash);
+                StockMarket.UpdateBranchPriceByName(newsFlash.branchName, newsFlash.effectOnStockPrice, newsFlash.isPositive);
+                // Show the newsPopup
+                newsPopup.SetActive(true);
+                NewsEffect newsEffect = FindObjectOfType<NewsEffect>();
+                newsEffect.ShowNews(newsFlash);
             }
         }
-
-        //check if newsEffectRound is not null and equal to the current round
-        if (newsEffectRound == rounds)
-        {
-            Debug.Log("NewsEffectRound is equal to rounds");
-            //update the stock price
-            Debug.Log(newsFlash);
-            StockMarket.UpdateBranchPriceByName(newsFlash.branchName, newsFlash.effectOnStockPrice, newsFlash.isPositive);
-            //show the newsPopup
-            newsPopup.SetActive(true);
-            NewsEffect newsEffect = FindObjectOfType<NewsEffect>();
-            newsEffect.ShowNews(newsFlash);
-
-        }
-
-        
-        if (rounds <= 10)
-        {
-            StartCoroutine(PlayRounds());
-        }
-        
     }
+
 
     public void StartNewsFlash()
     {
@@ -176,7 +172,7 @@ public class BoardController : MonoBehaviour
         newsEffectRound += 2; // Increment the value by 1
         Debug.Log("NewsEffectRound is set to: " + newsEffectRound);
         newsFlashHappend = true;
-        GameObject newsFlashScreen = Instantiate(newsFlashPrefab, canvas.transform, false);
+        newsFlashScreen = Instantiate(newsFlashPrefab, canvas.transform, false);
         // Set the parent of the instantiated NewsFlashScreen to canvas and preserve the world position
         RectTransform newsFlashRectTransform = newsFlashScreen.GetComponent<RectTransform>();
         newsFlashRectTransform.SetParent(canvas.transform, false);
@@ -211,7 +207,13 @@ public class BoardController : MonoBehaviour
     }
     public void OpenGame(NewsFlash newsFlash)
     {
+        
         this.newsFlash = newsFlash;
+        //destroy the newsflash transform
+        //destroy the newsflash prefab
+        Destroy(newsFlashScreen);
+        
+
         //show al items agian
         foreach (var item in players)
         {

@@ -101,7 +101,7 @@ public class VideoPlayerController : MonoBehaviour
         newsFlashSubject.enabled = false;
         continueButton.enabled = false;
     }
-    
+
     public void SetNewsFlash()
     {
         newsFlashes = newsFlashImporter.GetNewsFlashes();
@@ -110,14 +110,14 @@ public class VideoPlayerController : MonoBehaviour
         {
             int randomIndex = UnityEngine.Random.Range(0, newsFlashes.Count);
             this.newsFlash = newsFlashes[randomIndex];
-            newsFlashText.text = newsFlash.text;
-            newsFlashSubject.text = newsFlash.subject;
+            SetNewsFlash(this.newsFlash); // Call the overloaded method with the selected news flash
         }
         else
         {
             Debug.LogWarning("No news flashes available. Please import data from CSV first.");
         }
     }
+
 
 
 }
