@@ -17,7 +17,7 @@ public class BoardController : MonoBehaviour
     public TMP_Text roundText;
     public GameObject newsFlashPrefab;
     public bool newsFlashHappend = false;
-    public float newsFlashChance = 0.3f;
+    public float newsFlashChance = 0.1f;
     public bool hold = false;
     public Grid grid;
     public Canvas canvas;
@@ -117,7 +117,7 @@ public class BoardController : MonoBehaviour
     {
         scoreboard.updateScoreboard();
         //increase the chance of a newsflash
-        newsFlashChance += 0.1f;
+        newsFlashChance += 0.13f;
         if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
         {
 
