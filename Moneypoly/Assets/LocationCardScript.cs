@@ -39,7 +39,7 @@ public class LocationCardScript : MonoBehaviour
     }
     public void Open()
     {
-        canvasObject.SetActive(true);
+        canvasObject.gameObject.SetActive(true);
     }
     public void Close()
     {
