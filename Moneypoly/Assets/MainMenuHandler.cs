@@ -22,4 +22,9 @@ public class MainMenuHandler : MonoBehaviour
         SceneManager.UnloadSceneAsync("MainMenuScene");
         SceneManager.LoadScene("PlayGameScene");
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
