@@ -118,8 +118,7 @@ public class BoardController : MonoBehaviour
     {
         // Update the scoreboard at the end of the game
         scoreboard.updateScoreboard();
-        rounds += 1;
-        roundText.text = "Ronde: " + rounds.ToString() + "/10";
+        
 
         foreach (PlayerController player in players)
         //increase the chance of a newsflash
