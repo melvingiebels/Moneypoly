@@ -6,6 +6,7 @@ TagManager:
   tags:
   - TextCardTitle
   - TextCardDescription
+  - ScoreboardCard
   layers:
   - Default
   - TransparentFX

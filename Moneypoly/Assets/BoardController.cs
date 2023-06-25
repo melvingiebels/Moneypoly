@@ -22,8 +22,15 @@ public class BoardController : MonoBehaviour
     public Grid grid;
     public Canvas canvas;
     [SerializeField] private CardScript cardSettingScript;
+    private NewsFlash newsFlash;
+    private int newsEffectRound = 9;
+    public GameObject newsPopup;
+ 
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
+
+    // Reference to the Scoreboard component
+    public Scoreboard scoreboard;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +46,8 @@ public class BoardController : MonoBehaviour
     private void StartGame()
     {
         InitDeckOfCards();
+        scoreboard.setScoreBoard();
+
         float yValue = -140f;
         float xValue = -150f;
         Vector3 position = new Vector2(-150f, yValue);
@@ -102,13 +111,32 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayRounds()
     {
+        // Update the scoreboard at the end of the game
+        scoreboard.updateScoreboard();
         rounds += 1;
         roundText.text = "Ronde: " + rounds.ToString() + "/10";
+
+        foreach (PlayerController player in players)
         //increase the chance of a newsflash
         newsFlashChance += 0.1f;
-
-        if(hold == false)
+        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
         {
+
+            hold = true;
+            if (newsFlashPrefab != null)
+            {
+                StartNewsFlash();
+            }
+            else
+            {
+                Debug.LogWarning("NewsFlashScreen prefab reference is null. Assign the prefab in the Inspector.");
+            }
+        }
+
+        if (hold == false)
+        {
+            rounds += 1;
+            roundText.text = "Ronde: " + rounds.ToString() + "/10";
             foreach (PlayerController player in players)
             {
                 currentPlayerText.text = "Current player: " + player.name;
@@ -117,23 +145,21 @@ public class BoardController : MonoBehaviour
             }
         }
 
-        if (UnityEngine.Random.value <= 0.1f && newsFlashHappend == false && hold == false )
+        
+        //check if newsEffectRound is not null and equal to the current round
+        if (newsEffectRound == rounds)
         {
+            Debug.Log("NewsEffectRound is equal to rounds");
+            //update the stock price
+            Debug.Log(newsFlash);
+            StockMarket.UpdateBranchPriceByName(newsFlash.branchName, newsFlash.effectOnStockPrice, newsFlash.isPositive);
+            //show the newsPopup
+            newsPopup.SetActive(true);
+            NewsEffect newsEffect = FindObjectOfType<NewsEffect>();
+            newsEffect.ShowNews(newsFlash);
 
-            hold = true;
-            if (newsFlashPrefab != null)
-            {
-               StartNewsFlash();
-            }
-            else
-            {
-                Debug.LogWarning("NewsFlashScreen prefab reference is null. Assign the prefab in the Inspector.");
-            }
         }
-        if (newsFlashHappend == true)
-        {
-            newsFlashHappend = false;
-        }
+
         
 
 
@@ -144,16 +170,27 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    public void StartNewsFlash() {
-        
+    public void StartNewsFlash()
+    {
+        newsEffectRound = rounds;
+        newsEffectRound += 2; // Increment the value by 1
+        Debug.Log("NewsEffectRound is set to: " + newsEffectRound);
         newsFlashHappend = true;
-        GameObject newsFlashScreen = Instantiate(newsFlashPrefab, canvas.transform, true);
+        GameObject newsFlashScreen = Instantiate(newsFlashPrefab, canvas.transform, false);
+        // Set the parent of the instantiated NewsFlashScreen to canvas and preserve the world position
+        RectTransform newsFlashRectTransform = newsFlashScreen.GetComponent<RectTransform>();
+        newsFlashRectTransform.SetParent(canvas.transform, false);
+        // Calculate the size and position of the NewsFlashScreen relative to the canvas size
+        Vector2 canvasSize = canvas.GetComponent<RectTransform>().sizeDelta;
+        newsFlashRectTransform.sizeDelta = canvasSize;
+        newsFlashRectTransform.anchoredPosition = Vector2.zero;
         // Activate the instantiated NewsFlashScreen
         newsFlashScreen.SetActive(true);
         Debug.Log("Newsflash prefab instantiated.");
         HideGame();
-
     }
+
+
     public void HideGame()
     {
         //hide all game objects
@@ -172,8 +209,9 @@ public class BoardController : MonoBehaviour
         
 
     }
-    public void OpenGame()
+    public void OpenGame(NewsFlash newsFlash)
     {
+        this.newsFlash = newsFlash;
         //show al items agian
         foreach (var item in players)
         {

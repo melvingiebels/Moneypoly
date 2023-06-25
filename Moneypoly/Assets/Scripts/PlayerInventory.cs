@@ -12,7 +12,7 @@ public class PlayerInventory : MonoBehaviour
     public TMP_Text PlayerNameText;
 
     private List<Stock> wallet = new();
-    private float netWorth;
+    public float netWorth;
     public GameObject cardPrefab;
     public CardSpawner cardSpawner;
     private Dictionary<Stock, int> stocks = new();
