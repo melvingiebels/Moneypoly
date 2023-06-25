@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 waitForSpacebar = true;
+                playerInventory.transform.parent.gameObject.SetActive(false);
             }
         }
 
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
             isMoving = false;
             dialogueText.text = "Press spacebar to end your turn";
             yield return StartCoroutine(WaitForInput());
+            
         }
         yield break;
     }

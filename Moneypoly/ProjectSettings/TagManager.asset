@@ -9,6 +9,7 @@ TagManager:
   - Dice
   - PlayerSelectObject
   - PlayButton
+  - ScoreboardCard
   layers:
   - Default
   - TransparentFX

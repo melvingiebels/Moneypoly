@@ -317,9 +317,9 @@ public class StockMarket : MonoBehaviour
             }
         }
 
-        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
-        playerInventory.CalculateWallet();
-        playerInventory.SetStock();
+        //PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        //playerInventory.CalculateWallet();
+        //playerInventory.SetStock();
     }
 
     public void UpdateStockPriceById(int stockId, int percentage, bool positive)

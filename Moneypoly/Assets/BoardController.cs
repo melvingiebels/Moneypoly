@@ -13,10 +13,24 @@ public class BoardController : MonoBehaviour
     public TMP_Text currentPlayerText;
     public StockMarket StockMarket;
     public GameObject waypointPrefab;
-
-
+    public int rounds;
+    public TMP_Text roundText;
+    public GameObject newsFlashPrefab;
+    public bool newsFlashHappend = false;
+    public float newsFlashChance = 0.3f;
+    public bool hold = false;
+    public Grid grid;
+    public Canvas canvas;
+    [SerializeField] private CardScript cardSettingScript;
+    private NewsFlash newsFlash;
+    private int newsEffectRound = 9;
+    public GameObject newsPopup;
+ 
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
+
+    // Reference to the Scoreboard component
+    public Scoreboard scoreboard;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +46,8 @@ public class BoardController : MonoBehaviour
     public void StartGame()
     {
         InitDeckOfCards();
+        scoreboard.setScoreBoard();
+
         float yValue = -140f;
         float xValue = -150f;
         Vector3 position = new Vector2(-150f, yValue);
@@ -49,7 +65,14 @@ public class BoardController : MonoBehaviour
             {
                 // Customize the waypoint properties based on the stock data
                 waypointComponent.SetStockData(cards[waypointIndex].Stock);
-            } 
+            } else if (cards[waypointIndex].specialWaypoint != null)
+            {
+
+            }
+            else
+            {
+                waypointComponent.CardScript = cardSettingScript;
+            }
             // else, init the other types of waypoints
 
             // Set the parent of the waypoint to keep the hierarchy organized 
@@ -88,19 +111,123 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayRounds()
     {
+        // Update the scoreboard at the end of the game
+        scoreboard.updateScoreboard();
+        rounds += 1;
+        roundText.text = "Ronde: " + rounds.ToString() + "/10";
+
         foreach (PlayerController player in players)
+        //increase the chance of a newsflash
+        newsFlashChance += 0.1f;
+        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
         {
-            currentPlayerText.text = "Current player: " + player.name;
 
-            yield return StartCoroutine(player.PlayRound(Waypoints));
+            hold = true;
+            if (newsFlashPrefab != null)
+            {
+                StartNewsFlash();
+            }
+            else
+            {
+                Debug.LogWarning("NewsFlashScreen prefab reference is null. Assign the prefab in the Inspector.");
+            }
         }
 
-        if (UnityEngine.Random.value <= 0.2f) 
+        if (hold == false)
         {
-            SceneManager.LoadScene("NewsFlash", LoadSceneMode.Additive);
+            rounds += 1;
+            roundText.text = "Ronde: " + rounds.ToString() + "/10";
+            foreach (PlayerController player in players)
+            {
+                currentPlayerText.text = "Current player: " + player.name;
+
+                yield return StartCoroutine(player.PlayRound(Waypoints));
+            }
         }
+
+        
+        //check if newsEffectRound is not null and equal to the current round
+        if (newsEffectRound == rounds)
+        {
+            Debug.Log("NewsEffectRound is equal to rounds");
+            //update the stock price
+            Debug.Log(newsFlash);
+            StockMarket.UpdateBranchPriceByName(newsFlash.branchName, newsFlash.effectOnStockPrice, newsFlash.isPositive);
+            //show the newsPopup
+            newsPopup.SetActive(true);
+            NewsEffect newsEffect = FindObjectOfType<NewsEffect>();
+            newsEffect.ShowNews(newsFlash);
+
+        }
+
+        
+
+
+
+        if (rounds <= 10)
+        {
+            StartCoroutine(PlayRounds());
+        }
+    }
+
+    public void StartNewsFlash()
+    {
+        newsEffectRound = rounds;
+        newsEffectRound += 2; // Increment the value by 1
+        Debug.Log("NewsEffectRound is set to: " + newsEffectRound);
+        newsFlashHappend = true;
+        GameObject newsFlashScreen = Instantiate(newsFlashPrefab, canvas.transform, false);
+        // Set the parent of the instantiated NewsFlashScreen to canvas and preserve the world position
+        RectTransform newsFlashRectTransform = newsFlashScreen.GetComponent<RectTransform>();
+        newsFlashRectTransform.SetParent(canvas.transform, false);
+        // Calculate the size and position of the NewsFlashScreen relative to the canvas size
+        Vector2 canvasSize = canvas.GetComponent<RectTransform>().sizeDelta;
+        newsFlashRectTransform.sizeDelta = canvasSize;
+        newsFlashRectTransform.anchoredPosition = Vector2.zero;
+        // Activate the instantiated NewsFlashScreen
+        newsFlashScreen.SetActive(true);
+        Debug.Log("Newsflash prefab instantiated.");
+        HideGame();
+    }
+
+
+    public void HideGame()
+    {
+        //hide all game objects
+        foreach (var item in players)
+        {   
+            item.gameObject.SetActive(false);
+        }
+        foreach (var item in Waypoints)
+        {
+            item.gameObject.SetActive(false);
+        }
+        currentPlayerText.gameObject.SetActive(false);
+        roundText.gameObject.SetActive(false);
+        // close grid
+        grid.gameObject.SetActive(false);
+        
+
+    }
+    public void OpenGame(NewsFlash newsFlash)
+    {
+        this.newsFlash = newsFlash;
+        //show al items agian
+        foreach (var item in players)
+        {
+            item.gameObject.SetActive(true);
+        }
+        foreach (var item in Waypoints)
+        {
+            item.gameObject.SetActive(true);
+        }
+        currentPlayerText.gameObject.SetActive(true);
+        roundText.gameObject.SetActive(true);
+        grid.gameObject.SetActive(true);
+        hold = false;
         StartCoroutine(PlayRounds());
     }
+    
 
     private void InitDeckOfCards()
     {
@@ -125,6 +252,7 @@ public class BoardController : MonoBehaviour
                 cards.Add(new GenericTile(null,null,null));
             }
         }
+
         foreach (var item in stocks)
         {
             // search for the empty places
@@ -133,6 +261,7 @@ public class BoardController : MonoBehaviour
                 if (cards[i].card == null && cards[i].specialWaypoint == null && cards[i].Stock == null)
                 {
                     cards[i] = new GenericTile(null, item, null);
+                    break;
                 }
             }
         }
