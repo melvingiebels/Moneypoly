@@ -75,14 +75,14 @@ public class VideoPlayerController : MonoBehaviour
 
         // Stop the "Nostechno" coroutine from the AudioManager (assuming it's implemented as a coroutine)
         audioManager?.StopMusic("Nostechno");
-      
 
         // Close the news elements
         CloseNews();
 
         BackToGame();
 
-
+        // Destroy this object
+        Destroy(gameObject);
     }
     public void BackToGame()
     {
