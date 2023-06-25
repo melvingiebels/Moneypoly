@@ -49,9 +49,10 @@ public class LocationCardScript : MonoBehaviour
     {
         if (waypoint.CardScript != null)  
         {
+            Open();
             ShowCard(waypoint);
         }
-        else if (waypoint.Stock != null)
+        else if (waypoint.Stock.stockName != "")
         {
             ShowStock(waypoint,player);
         }

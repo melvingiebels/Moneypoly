@@ -83,18 +83,23 @@ public class BoardController : MonoBehaviour
 
             if (waypointIndex >= 30)
             {
-                xIncrement = -25;
+                xIncrement = -28;
                 yIncrement = 0;
             }
             else if (waypointIndex >= 20)
             {
-                yIncrement = -25;
+                yIncrement = -29;
                 xIncrement = 0;
-
             }
             else if (waypointIndex >= 10)
             {
-                xIncrement = 25;
+              
+                xIncrement = 26;
+
+                if (waypointIndex >= 15)
+                {
+                    xIncrement = 28;
+                }
                 yIncrement = 0;
             }
             else if (waypointIndex >= 0)

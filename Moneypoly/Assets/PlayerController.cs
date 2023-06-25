@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
         startPoint = targetWaypointIndex;
 
-        locationCard.Open();
+        
         locationCard.FillDataFromWaypoint(waypoints[targetWaypointIndex], playerInventory);
     }
 
