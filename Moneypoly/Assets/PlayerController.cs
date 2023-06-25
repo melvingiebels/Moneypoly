@@ -100,8 +100,11 @@ public class PlayerController : MonoBehaviour
 
         startPoint = targetWaypointIndex;
 
-        
-        locationCard.FillDataFromWaypoint(waypoints[targetWaypointIndex], playerInventory);
+        if (waypoints[targetWaypointIndex-1].Stock.stockName != "")
+        {
+            locationCard.Open();
+        }
+        locationCard.FillDataFromWaypoint(waypoints[targetWaypointIndex-1], playerInventory);
     }
 
     internal IEnumerator MoveToWaypoint(WaypointComponent waypoint)

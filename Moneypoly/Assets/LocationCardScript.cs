@@ -47,12 +47,14 @@ public class LocationCardScript : MonoBehaviour
     }
     public void FillDataFromWaypoint(WaypointComponent waypoint,PlayerInventory player)
     {
+        Close();
         if (waypoint.CardScript != null)  
         {
             ShowCard(waypoint);
         }
         else if (waypoint.Stock.stockName != "")
         {
+            
             Open();
             ShowStock(waypoint,player);
         }
