@@ -116,11 +116,7 @@ public class BoardController : MonoBehaviour
 
     private IEnumerator PlayRounds()
     {
-        // Update the scoreboard at the end of the game
-        scoreboard.updateScoreboard();
         
-
-        foreach (PlayerController player in players)
         //increase the chance of a newsflash
         newsFlashChance += 0.1f;
         if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
@@ -141,6 +137,7 @@ public class BoardController : MonoBehaviour
         {
             rounds += 1;
             roundText.text = "Ronde: " + rounds.ToString() + "/10";
+            //scoreboard.updateScoreboard();
             foreach (PlayerController player in players)
             {
                 currentPlayerText.text = "Current player: " + player.name;
