@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,27 +13,45 @@ public class VideoPlayerController : MonoBehaviour
     public TextMeshProUGUI newsFlashText;
     public TextMeshProUGUI newsFlashSubject;
     public Button continueButton;
-    private AudioManager audioManager;
-    private NewsFlashImporter newsFlashImporter= new NewsFlashImporter();
+    public AudioManager audioManager;
+    private NewsFlashImporter newsFlashImporter;
 
     private List<NewsFlash> newsFlashes;
     void Start()
     {
+        rawImage.enabled = true;
+        CloseNews();
         videoPlayer.audioOutputMode = VideoAudioOutputMode.None;
         videoPlayer.SetDirectAudioMute(0, true);
 
         audioManager = FindObjectOfType<AudioManager>();
         audioManager.Play("Nostechno");
+        //lower the volume of the music
+        
 
         videoPlayer.loopPointReached += OnVideoEnd;
 
-        newsFlashImporter = FindObjectOfType<NewsFlashImporter>();
-        newsFlashImporter.ImportNewsFlashes(); // Import the news flashes
+        newsFlashImporter = GameObject.FindObjectOfType<NewsFlashImporter>();
+        if (newsFlashImporter != null)
+        {
+            // Use the newsFlashImporter object
+            newsFlashImporter.ImportNewsFlashes(); // Import the news flashess
+            SetNewsFlash();
+            Debug.Log("NewsFlashImporter object found");
+        }
+        else
+        {
+            // NewsFlashImporter object not found
+            Debug.LogWarning("NewsFlashImporter object not found");
+        }
+        
 
-        SetNewsFlash();
+        
 
-        continueButton.onClick.AddListener(SwitchScene);
+        continueButton.onClick.AddListener(CloseScreen);
+       
     }
+
 
     public void SetNewsText(string text)
     {
@@ -45,28 +64,50 @@ public class VideoPlayerController : MonoBehaviour
         imageToShow.enabled = true;
         newsFlashText.enabled = true;
         newsFlashSubject.enabled = true;
+        continueButton.enabled = true;
     }
 
-    public void SwitchScene()
+    public void CloseScreen()
     {
-        //stop the music
-        audioManager.StopAllCoroutines();
-        //load the next scene 
-        SceneController.instance.LoadScene("StockScene");
+        // Close the whole screen by disabling the parent GameObject
+        transform.parent?.gameObject.SetActive(false);
 
+        // Stop the "Nostechno" coroutine from the AudioManager (assuming it's implemented as a coroutine)
+        audioManager?.StopMusic("Nostechno");
+      
+
+        // Close the news elements
+        CloseNews();
+
+        BackToGame();
+
+
+    }
+    public void BackToGame()
+    {
+        BoardController boardController = FindObjectOfType<BoardController>();
+        boardController?.OpenGame();
     }
     public void SetNewsFlash(NewsFlash newsFlash)
     {
         newsFlashText.text = newsFlash.text;
         newsFlashSubject.text = newsFlash.subject;
     }
+    public void CloseNews()
+    {
+        imageToShow.enabled = false;
+        newsFlashText.enabled = false;
+        newsFlashSubject.enabled = false;
+        continueButton.enabled = false;
+    }
+    
     public void SetNewsFlash()
     {
         newsFlashes = newsFlashImporter.GetNewsFlashes();
 
         if (newsFlashes != null && newsFlashes.Count > 0)
         {
-            int randomIndex = Random.Range(0, newsFlashes.Count);
+            int randomIndex = UnityEngine.Random.Range(0, newsFlashes.Count);
             NewsFlash newsFlash = newsFlashes[randomIndex];
             newsFlashText.text = newsFlash.text;
             newsFlashSubject.text = newsFlash.subject;
