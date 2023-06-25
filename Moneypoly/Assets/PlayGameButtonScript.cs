@@ -9,10 +9,13 @@ public class PlayGameButtonScript : MonoBehaviour
 {
     public List<PlayerSelectTab> playerSelectedScreens;
     public PlayerSelectionManager playerSelectionManager;
+    public GameObject inventoryScreenPrefab;
+    public GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerSelectionManager.inventoryScreenPrefab = inventoryScreenPrefab;
+        playerSelectionManager.playerPrefab = playerPrefab;
     }
 
     // Update is called once per frame

@@ -35,7 +35,7 @@ public class BoardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartGame();   
+           
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class BoardController : MonoBehaviour
     {
         
     }
-    private void StartGame()
+    public void StartGame()
     {
         InitDeckOfCards();
         scoreboard.setScoreBoard();
@@ -110,7 +110,6 @@ public class BoardController : MonoBehaviour
             position = new Vector2(xValue += xIncrement, yValue += yIncrement);
             waypointIndex += 1;
         }
-
         StartCoroutine(PlayRounds());
     }
 
@@ -120,7 +119,7 @@ public class BoardController : MonoBehaviour
         scoreboard.updateScoreboard();
         
 
-        foreach (PlayerController player in players)
+        
         //increase the chance of a newsflash
         newsFlashChance += 0.1f;
         if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
@@ -165,9 +164,6 @@ public class BoardController : MonoBehaviour
         }
 
         
-
-
-
         if (rounds <= 10)
         {
             StartCoroutine(PlayRounds());

@@ -28,6 +28,23 @@ public class PlayerSelectTab : MonoBehaviour
     }
     public void RemovePlayer()
     {
+        GameObject playerSelectedScreen = GameObject.Find("PlayersSelectedScreen");
+        playerSelectedScreen.GetComponent<PlayerSelectedScreen>().Remove(SelectedPlayer);
         SelectedPlayer = null;
+        GameObject[] playerSelectObject = GameObject.FindGameObjectsWithTag("PlayerSelectObject");
+        
+        foreach (GameObject gameObject in playerSelectObject)
+        {
+            PlayerSelectScript ps = gameObject.GetComponent<PlayerSelectScript>();
+            if (PlayerNameText.text == ps.PlayerNameField.text)
+            {
+                ps.SelectButton.gameObject.SetActive(true);
+                ps.NextImageButton.gameObject.SetActive(true);
+                ps.PlayerNameField.interactable = true;
+            }
+
+            ps.AddPossibleCharacter(PlayerImage.sprite);
+
+        }
     }
 }

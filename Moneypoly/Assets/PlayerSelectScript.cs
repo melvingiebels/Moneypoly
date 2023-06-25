@@ -36,14 +36,57 @@ public class PlayerSelectScript : MonoBehaviour
         {
             ImageInteger = 0;
         }
-
-        CharacterSelectImage.sprite = PossibleCharacters[ImageInteger];
+        if (PossibleCharacters[ImageInteger] != null)
+        {
+            CharacterSelectImage.sprite = PossibleCharacters[ImageInteger];
+        }
+        else
+        {
+            NextCharacterImage();
+        }
+       
     }
 
     public void SelectPlayer()
     {
         AssignedPlayerTab.SelectedPlayer = new Player(PossibleCharacters[ImageInteger], PlayerNameField.text);
+        this.RemovePossibleCharactersForAllPlayers();
         AssignedPlayerTab.InitScreen();
+        PlayerNameField.interactable = false;
+        SelectButton.gameObject.SetActive(false);
+        NextImageButton.gameObject.SetActive(false);
+
+        GameObject playerSelectedScreen = GameObject.Find("PlayersSelectedScreen");
+        playerSelectedScreen.GetComponent<PlayerSelectedScreen>().Add(AssignedPlayerTab.SelectedPlayer);
+        
         AssignedPlayerTab.gameObject.SetActive(true);
+    }
+
+    public void RemovePossibleCharactersForAllPlayers()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("PlayerSelectObject");
+
+        foreach (GameObject p in players)
+        {
+            PlayerSelectScript ps = p.GetComponent<PlayerSelectScript>();
+            if(ps.CharacterSelectImage.sprite == ps.PossibleCharacters[ImageInteger] && p != gameObject)
+            {
+                ps.NextCharacterImage();
+            }
+            ps.PossibleCharacters[ImageInteger] = null;
+        }
+    }
+
+    public void AddPossibleCharacter(Sprite s)
+    {
+
+        for (int i = 0; i < PossibleCharacters.Length; i++)
+        {
+            if (PossibleCharacters[i] == null)
+            {
+                PossibleCharacters[i] = s;
+                break; 
+            }
+        }
     }
 }

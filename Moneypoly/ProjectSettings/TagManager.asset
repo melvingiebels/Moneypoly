@@ -6,6 +6,9 @@ TagManager:
   tags:
   - TextCardTitle
   - TextCardDescription
+  - Dice
+  - PlayerSelectObject
+  - PlayButton
   - ScoreboardCard
   layers:
   - Default

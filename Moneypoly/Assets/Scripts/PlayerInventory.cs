@@ -24,7 +24,8 @@ public class PlayerInventory : MonoBehaviour
         bugetValueText.text = "€" + budget.ToString();
         stockNetWorthText.text = "€ " + netWorth.ToString("0.00");
         cardSpawner = GetComponent<CardSpawner>();
-        playerController = GetComponentInParent<Transform>().parent.GetComponentInParent<PlayerController>();
+        playerController = GetComponentInParent<PlayerController>();
+        playerController.playerInventory = this;
 
     }
 
