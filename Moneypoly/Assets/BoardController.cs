@@ -117,8 +117,8 @@ public class BoardController : MonoBehaviour
     {
         scoreboard.updateScoreboard();
         //increase the chance of a newsflash
-        
-        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
+
+        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false && rounds > 1)
         {
 
             hold = true;
@@ -134,7 +134,10 @@ public class BoardController : MonoBehaviour
 
         if (hold == false)
         {
+            StockMarket.UpdateStockPrices();
+            scoreboard.updateScoreboard();
             rounds += 1;
+            newsFlashChance += 0.15f;
             roundText.text = "Ronde: " + rounds.ToString() + "/10";
             
             foreach (PlayerController player in players)
@@ -164,7 +167,7 @@ public class BoardController : MonoBehaviour
         {
             StartCoroutine(PlayRounds());
         }
-        newsFlashChance += 0.15f;
+        
     }
 
     public void StartNewsFlash()
@@ -262,5 +265,14 @@ public class BoardController : MonoBehaviour
                 }
             }
         }
+    }
+    public List<PlayerInventory> GetPlayers()
+    {
+        List<PlayerInventory> playerInventories = new List<PlayerInventory>();
+        foreach (var item in players)
+        {
+            playerInventories.Add(item.playerInventory);
+        }
+        return playerInventories;
     }
 }
