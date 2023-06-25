@@ -50,13 +50,17 @@ public class LocationCardScript : MonoBehaviour
         if(waypoint.Stock != null)
         {
             ShowStock(waypoint,player);
-        } else if ()
+        } else if (waypoint.CardScript != null)
         {
-
+            ShowCard(waypoint);
         }
     
     }
-
+    public void ShowCard(WaypointComponent waypoint) 
+    {
+        // Laat het nog kijken of het algemeen of kans is :)
+        waypoint.CardScript.ShowCardAlgemeen();
+    }
     public void ShowStock(WaypointComponent waypoint, PlayerInventory player)
     {
         currentWaypoint = waypoint;

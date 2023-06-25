@@ -21,6 +21,7 @@ public class BoardController : MonoBehaviour
     public bool hold = false;
     public Grid grid;
     public Canvas canvas;
+    [SerializeField] private CardScript cardSettingScript;
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
 
@@ -61,7 +62,7 @@ public class BoardController : MonoBehaviour
             }
             else
             {
-                waypointComponent.SetCardData();
+                waypointComponent.CardScript = cardSettingScript;
             }
             // else, init the other types of waypoints
 
@@ -116,7 +117,7 @@ public class BoardController : MonoBehaviour
             }
         }
 
-        if (UnityEngine.Random.value <= 1f && newsFlashHappend == false && hold == false )
+        if (UnityEngine.Random.value <= 0.1f && newsFlashHappend == false && hold == false )
         {
 
             hold = true;
@@ -213,6 +214,7 @@ public class BoardController : MonoBehaviour
                 cards.Add(new GenericTile(null,null,null));
             }
         }
+
         foreach (var item in stocks)
         {
             // search for the empty places
@@ -221,6 +223,7 @@ public class BoardController : MonoBehaviour
                 if (cards[i].card == null && cards[i].specialWaypoint == null && cards[i].Stock == null)
                 {
                     cards[i] = new GenericTile(null, item, null);
+                    break;
                 }
             }
         }
