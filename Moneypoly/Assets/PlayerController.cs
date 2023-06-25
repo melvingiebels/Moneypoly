@@ -90,6 +90,7 @@ public class PlayerController : MonoBehaviour
 
     internal IEnumerator MovePlayer(List<WaypointComponent> waypoints, int diceRoll)
     {
+        diceRoll += 1;
         int targetWaypointIndex = (startPoint + diceRoll) % waypoints.Count;
 
         for (int i = startPoint; i != targetWaypointIndex; i = (i + 1) % waypoints.Count)

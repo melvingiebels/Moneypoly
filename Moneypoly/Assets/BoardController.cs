@@ -148,7 +148,6 @@ public class BoardController : MonoBehaviour
             }
         }
 
-        
         //check if newsEffectRound is not null and equal to the current round
         if (newsEffectRound == rounds)
         {
