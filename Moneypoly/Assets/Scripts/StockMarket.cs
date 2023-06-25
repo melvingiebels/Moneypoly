@@ -317,9 +317,8 @@ public class StockMarket : MonoBehaviour
             }
         }
 
-        //PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
-        //playerInventory.CalculateWallet();
-        //playerInventory.SetStock();
+        PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+        playerInventory.CalculateWallet();
     }
 
     public void UpdateStockPriceById(int stockId, int percentage, bool positive)
@@ -341,9 +340,28 @@ public class StockMarket : MonoBehaviour
 
             PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
             playerInventory.CalculateWallet();
-            playerInventory.SetStock();
         }
     }
+    public void UpdateStockPriceByName(string stockName, int percentage, bool positive)
+    {
+        Stock stock = stocks.Find((r)=> r.stockName == stockName );
 
+        if (stock != null)
+        {
+            float change = stock.currentPrice * (percentage / 100.0f);
+
+            if (positive)
+            {
+                stock.currentPrice += change;
+            }
+            else
+            {
+                stock.currentPrice -= change;
+            }
+
+            PlayerInventory playerInventory = FindObjectOfType<PlayerInventory>();
+            playerInventory.CalculateWallet();
+        }
+    }
 
 }

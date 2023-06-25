@@ -96,18 +96,27 @@ public class CardScript : MonoBehaviour
             int rnd = Random.Range(0, algemeenDeck.Count);
             TextMeshProUGUI[] txtmeshpro = algemeenCardDeckGameObject.GetComponentsInChildren<TextMeshProUGUI>(true);
 
+            StockMarket stockMarket = GameObject.Find("GameManager").GetComponent<StockMarket>();
+
             string s = "";
             if (algemeenDeck[rnd].branch != "N/A")
             {
+                stockMarket.UpdateBranchPriceByName(algemeenDeck[rnd].branch, algemeenDeck[rnd].percentage, algemeenDeck[rnd].changeBool);
                 s = s + algemeenDeck[rnd].branch;
             }
             if (algemeenDeck[rnd].company != "N/A")
             {
+                stockMarket.UpdateStockPriceByName(algemeenDeck[rnd].company, algemeenDeck[rnd].percentage, algemeenDeck[rnd].changeBool);
                 s = s + " " + algemeenDeck[rnd].company;
             }
 
             txtmeshpro[0].text = s;
             txtmeshpro[1].text = algemeenDeck[rnd].description;
+
+          
+
+            
+
             algemeenCardDeckGameObject.SetActive(true);
             algemeenDeckEmpty.Add(algemeenDeck[rnd]);
             algemeenDeck.Remove(algemeenDeck[rnd]);
