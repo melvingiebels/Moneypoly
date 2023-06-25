@@ -978,7 +978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7037297506077022999, guid: bc3457bca0a94774d9a2dd69a19e8c21, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3457bca0a94774d9a2dd69a19e8c21, type: 3}
@@ -1213,6 +1213,18 @@ MonoBehaviour:
   hold: 0
   grid: {fileID: 1417267847}
   canvas: {fileID: 167722781}
+  cardSettingScript: {fileID: 1179504006}
+--- !u!114 &1179504006 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7037297506077022997, guid: bc3457bca0a94774d9a2dd69a19e8c21, type: 3}
+  m_PrefabInstance: {fileID: 744631211}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35110bab4cb3d84b912f242150af90f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1417267846
 GameObject:
   m_ObjectHideFlags: 0
