@@ -105,7 +105,6 @@ public class BoardController : MonoBehaviour
             position = new Vector2(xValue += xIncrement, yValue += yIncrement);
             waypointIndex += 1;
         }
-
         StartCoroutine(PlayRounds());
     }
 
@@ -116,7 +115,7 @@ public class BoardController : MonoBehaviour
         rounds += 1;
         roundText.text = "Ronde: " + rounds.ToString() + "/10";
 
-        foreach (PlayerController player in players)
+        
         //increase the chance of a newsflash
         newsFlashChance += 0.1f;
         if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false)
@@ -161,9 +160,6 @@ public class BoardController : MonoBehaviour
         }
 
         
-
-
-
         if (rounds <= 10)
         {
             StartCoroutine(PlayRounds());
