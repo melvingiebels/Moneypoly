@@ -53,8 +53,6 @@ public class PlayerSelectionManager : MonoBehaviour
                     player.transform.SetParent(boardController.transform); // Attach to the root object of the scene
                     //player.transform.SetPositionAndRotation(boardController.transform.position,Quaternion.identity);
                     PlayerController playerController = player.GetComponent<PlayerController>(); // Get the PlayerController component from the prefab
-                    playerController.playerInventory = new PlayerInventory();
-
                     GameObject inventoryScreen = Instantiate(inventoryScreenPrefab, player.transform);
 
                     playerController.Initialize(playerSelectTab.PlayerImage.sprite, yChord, xChord); // Pass player-specific parameters
