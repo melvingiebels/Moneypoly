@@ -21,7 +21,7 @@ public class BoardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartGame();   
+           
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class BoardController : MonoBehaviour
     {
         
     }
-    private void StartGame()
+    public void StartGame()
     {
         InitDeckOfCards();
         float yValue = -140f;

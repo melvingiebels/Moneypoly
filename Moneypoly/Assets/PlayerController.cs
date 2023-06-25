@@ -135,10 +135,10 @@ public class PlayerController : MonoBehaviour
         callback(die1 + die2);
     }
 
-    public void Initialize(Sprite sprite,float yChord)
+    public void Initialize(Sprite sprite,float yChord, float xChord)
     {
         objectRenderer.sprite = sprite;
-        var transform = new Vector3(-152.3f, yChord);
+        var transform = new Vector3(xChord, yChord);
         objectRenderer.transform.position = transform;
     }
 

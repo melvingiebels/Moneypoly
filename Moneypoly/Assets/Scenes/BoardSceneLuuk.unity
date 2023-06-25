@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d0c2a2c40a73a428beb006b31e672e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dice1: {fileID: 0}
+  dice1: {fileID: 21300000, guid: 4e4367c3e0f632d48ae325267633766e, type: 3}
   audio: {fileID: 0}
 --- !u!212 &586370612
 SpriteRenderer:
@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d0c2a2c40a73a428beb006b31e672e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dice1: {fileID: 0}
+  dice1: {fileID: 21300000, guid: 4e4367c3e0f632d48ae325267633766e, type: 3}
   audio: {fileID: 0}
 --- !u!212 &1949365897
 SpriteRenderer:
