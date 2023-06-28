@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - TextCardTitle
+  - TextCardDescription
+  - Dice
+  - PlayerSelectObject
+  - PlayButton
+  - ScoreboardCard
   layers:
   - Default
   - TransparentFX
