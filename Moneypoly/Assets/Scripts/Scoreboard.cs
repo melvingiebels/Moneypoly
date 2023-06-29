@@ -105,7 +105,6 @@ public class Scoreboard : MonoBehaviour
         sortedPlayers.Sort((a, b) => (b.playerInventory.netWorth + b.playerInventory.budget).CompareTo(a.playerInventory.netWorth + a.playerInventory.budget));
 
         float yOffset = 450f; // Initial y-offset for the first card
-;
 
         // Loop through the players and create a scoreboard card for each player
         for (int i = 0; i < sortedPlayers.Count; i++)
@@ -124,23 +123,22 @@ public class Scoreboard : MonoBehaviour
 
             cardRectTransform.anchoredPosition = anchoredPosition;
 
-
             // Set the player name and score on the scoreboard card
             Transform playerTransform = newScoreboardCard.transform.Find("Player");
 
             TMP_Text playerScoreText = playerTransform.Find("PlayerScore").GetComponent<TMP_Text>();
-            playerScoreText.text = "€ " + (sortedPlayers[i].playerInventory.netWorth + sortedPlayers[i].playerInventory.budget).ToString();
+            playerScoreText.text = "€ " + (sortedPlayers[i].playerInventory.netWorth + sortedPlayers[i].playerInventory.budget).ToString("N2");
+            playerScoreText.fontSize = 30;
 
             TMP_Text playerScoreBudgetText = playerTransform.Find("PlayerScoreBudget").GetComponent<TMP_Text>();
-            playerScoreBudgetText.text = "B: € " + sortedPlayers[i].playerInventory.budget.ToString();
-
-
+            playerScoreBudgetText.text = "B: € " + sortedPlayers[i].playerInventory.budget.ToString("N2");
+            
             TMP_Text playerScoreWalletText = playerTransform.Find("PlayerScoreWallet").GetComponent<TMP_Text>();
-            playerScoreWalletText.text = "P: € " + sortedPlayers[i].playerInventory.netWorth.ToString();
-
+            playerScoreWalletText.text = "P: € " + sortedPlayers[i].playerInventory.netWorth.ToString("N2");
 
             TMP_Text rankingPlayerText = playerTransform.Find("Position").GetComponent<TMP_Text>();
             rankingPlayerText.text = (i + 1) + "ᵉ";
+
 
             // Set the ranking color based on position
             switch (i)
