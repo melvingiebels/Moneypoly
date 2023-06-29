@@ -26,7 +26,7 @@ public class BoardController : MonoBehaviour
     private int newsEffectRound = 9;
     public GameObject newsPopup;
     public PlayerController currentPlayer;
-    private BoardController boardController;
+ 
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
 
@@ -36,7 +36,7 @@ public class BoardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        boardController = GameObject.Find("BoardController").GetComponent<BoardController>();
+           
     }
 
     // Update is called once per frame
@@ -119,7 +119,7 @@ public class BoardController : MonoBehaviour
         scoreboard.updateScoreboard();
         //increase the chance of a newsflash
 
-        if (UnityEngine.Random.value <= newsFlashChance && newsFlashHappend == false && hold == false && rounds > 1)
+        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false && rounds > 1)
         {
 
             hold = true;
