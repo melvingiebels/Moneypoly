@@ -17,6 +17,7 @@ public class LocationCardScript : MonoBehaviour
 
     private WaypointComponent currentWaypoint;
     private PlayerInventory currentPlayer;
+    public BoardController boardController;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,8 @@ public class LocationCardScript : MonoBehaviour
     }
     public void Invest()
     {
+        currentPlayer = boardController.currentPlayer.playerInventory;
+        currentWaypoint = boardController.currentPlayer.currentWaypoint;
         //1 add the stock to the player's inventory
         currentPlayer.cardSpawner.transform.parent.gameObject.SetActive(true);
 

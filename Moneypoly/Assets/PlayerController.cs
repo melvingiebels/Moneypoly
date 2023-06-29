@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LocationCardScript locationCard;
     public PlayerInventory playerInventory;
     private bool isOpen= false;
-
+    public WaypointComponent currentWaypoint;
     private GameObject[] Dice;
     
     void Start()
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
         }
 
         startPoint = targetWaypointIndex;
-
+        currentWaypoint = waypoints[targetWaypointIndex - 1];
         locationCard.FillDataFromWaypoint(waypoints[targetWaypointIndex-1], playerInventory);
     }
 

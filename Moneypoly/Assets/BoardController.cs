@@ -25,6 +25,7 @@ public class BoardController : MonoBehaviour
     private NewsFlash newsFlash;
     private int newsEffectRound = 9;
     public GameObject newsPopup;
+    public PlayerController currentPlayer;
  
     // TODO:: DIT VERANDEREN NAAR EEN INTERFACE VAN CARDS NIET ALGEMEEN CARD
     private List<GenericTile> cards = new List<GenericTile>();
@@ -143,7 +144,7 @@ public class BoardController : MonoBehaviour
             foreach (PlayerController player in players)
             {
                 currentPlayerText.text = "Current player: " + player.name;
-
+                currentPlayer = player;
                 yield return StartCoroutine(player.PlayRound(Waypoints));
             }
         }
