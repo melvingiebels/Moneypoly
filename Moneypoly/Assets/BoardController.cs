@@ -119,7 +119,7 @@ public class BoardController : MonoBehaviour
         scoreboard.updateScoreboard();
         //increase the chance of a newsflash
 
-        if (UnityEngine.Random.value <= 0.2f && newsFlashHappend == false && hold == false && rounds > 1)
+        if (UnityEngine.Random.value <= newsFlashChance && newsFlashHappend == false && hold == false && rounds > 1)
         {
 
             hold = true;
